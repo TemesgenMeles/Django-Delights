@@ -1,23 +1,27 @@
 from django.db import models
-units = {
-    "tbsp": "big table spune",
-    "lbs": "table spune",
-    "gr": "gram",
-    "kg": "kilogram",
-    "ounce": "ounce",
-    "ml": "mililitre",
-    "li": "litre"
-}
+units = [
+    ("tsp", "teaspoon"),
+    ("tbsp", "tablespoon"),
+    ("lbs", "pound"),
+    ("gr", "gram"),
+    ("kg", "kilogram"),
+    ("oz", "ounce"),
+    ("ml", "mililitre"),
+    ("li", "litre"),
+    ("glass", "glass"),
+    ("gal", "gallon")
+]
 # Create your models here.
 class Ingradient(models.Model):
-    states = {
-        "li": "liquid",
-        "so": "solid"
-    }
+    states = [
+        ("li", "liquid"),
+        ("so", "solid")
+    ]
+    
     Name = models.CharField(max_length=50)
-    State = models.CharField(max_length=2, choice=states)
+    State = models.CharField(max_length=2, choices=states)
     Quantity = models.FloatField(default=0)
-    Unit = models.CharField(max_length=6, choice=units)
+    Unit = models.CharField(max_length=6, choices=units)
     Unit_price = models.FloatField(default=0)
 
 class MenuItem(models.Model):
@@ -28,11 +32,11 @@ class MenuItem(models.Model):
 class RecipeRequirement(models.Model):
     Menu_item = models.ForeignKey("MenuItem", verbose_name=("Menu Item"), on_delete=models.CASCADE)
     Ingradint = models.ForeignKey("Ingradient", verbose_name=("Recipe"), on_delete=models.CASCADE)
-    Quantity = models.FloatField(default=0, balnk=False, Null=False)
-    Unit = models.CharField(max_length=6, choice=units)
+    Quantity = models.FloatField(default=0, blank=False, null=False)
+    Unit = models.CharField(max_length=6, choices=units)
     
 class Purchase(models.Model):
-    Menu_item = models.ForeignKey("MenuItem", verbose_name=("Menu Item"))
-    Timestamp = models.DateTimeField(auto_now=True, auto_now_add=True)
+    Menu_item = models.ForeignKey("MenuItem", verbose_name=("Menu Item"), on_delete=models.PROTECT)
+    Timestamp = models.DateTimeField(auto_now=True)
     Quantity = models.IntegerField(default=1)
     Total_price = models.FloatField()
