@@ -9,13 +9,15 @@ units = [
     ("ml", "mililitre"),
     ("li", "litre"),
     ("glass", "glass"),
-    ("gal", "gallon")
+    ("gal", "gallon"),
+    ("count", "count")
 ]
 # Create your models here.
 class Ingradient(models.Model):
     states = [
         ("li", "liquid"),
-        ("so", "solid")
+        ("so", "solid"),
+        ("co", "count")
     ]
     
     Name = models.CharField(max_length=50)
