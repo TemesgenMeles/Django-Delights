@@ -33,7 +33,7 @@ class MenuItem(models.Model):
     
 class RecipeRequirement(models.Model):
     Menu_item = models.ForeignKey("MenuItem", verbose_name=("Menu Item"), on_delete=models.CASCADE)
-    Ingradint = models.ForeignKey("Ingradient", verbose_name=("Recipe"), on_delete=models.CASCADE)
+    Ingradint = models.ForeignKey("Ingradient", verbose_name=("Recipe"), on_delete=models.PROTECT)
     Quantity = models.FloatField(default=0, blank=False, null=False)
     Unit = models.CharField(max_length=6, choices=units)
     
@@ -42,3 +42,17 @@ class Purchase(models.Model):
     Timestamp = models.DateTimeField(auto_now=True)
     Quantity = models.IntegerField(default=1)
     Total_price = models.FloatField()
+    
+class PurcahseHistory(models.Model):
+    Menu_name = models.CharField(max_length=50)
+    Timestamp = models.DateTimeField()
+    Quantity = models.IntegerField(default=1)
+    Total_price = models.FloatField()
+    
+class Profit(models.Model):
+    Cost = models.FloatField(default = 0)
+    Revenue = models.FloatField(default = 0)
+    Profit = models.FloatField(default = 0)
+    Timestamp_start = models.DateTimeField()
+    Timestamp_end = models.DateTimeField()
+    
