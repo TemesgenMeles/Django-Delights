@@ -3,6 +3,20 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.profile {
+    margin: 20px 0 0 20px;
+}
+
+.profile .name {
+    color: var(--secondary_color);
+    letter-spacing: 2px;
+}
+
+.profile .name span {
+    color: var(--primary_color);
+}
+
 .main {
     display: flex;
     justify-content: center;

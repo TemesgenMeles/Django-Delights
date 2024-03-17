@@ -18,9 +18,9 @@ def DeleteIngradients(request, id):
     return ShowIngradients(request)
     
 def ShowMenu(request):
-    menu_items = MenuItem.objects.all()
+    menu_items = MenuItem.objects.order_by("-Reating")
     context = {
-        "menu_items" : menu_items
+        "menu_items" : menu_items,
     }
     
     return render(request, "inventory/menus.html", context)
