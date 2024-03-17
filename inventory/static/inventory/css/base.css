@@ -1,0 +1,136 @@
+
+@font-face {
+    font-family: "Acorn bold";
+    src: url('../fonts/acorn bold.ttf');
+}
+
+:root {
+    --primary_color: rgb(255, 64, 24);
+    --secondary_color: whitesmoke;
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Acorn bold";
+}
+
+header {
+    position: sticky;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.507);
+    padding-inline: 10px;
+    padding-block: 8px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 5rem;
+}
+
+.logo {
+    width: calc(20% - 10px);
+}
+
+.logo a{
+    display: block;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.logo a img{
+    width: 20%;
+    height: auto;
+}
+
+.navigation {
+    width: calc(80% - 10px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 20px 10px 20px;
+    gap: 4rem;
+    margin-right: 2rem;
+}
+
+.navigation ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: calc(70% - 10px);
+    gap: 10px;
+}
+
+.navigation ul li {
+    list-style: none;
+    width: 12%;
+}
+
+.navigation ul li a{
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    text-align: center;
+    color: var(--secondary_color);
+    font-size: 1.15rem;
+    letter-spacing: 1.5px;
+}
+
+.navigation ul li a:hover, .navigation ul li a:focus {
+    font-size: 1.25rem;
+    border-bottom: 2px solid var(--primary_color);
+    transition: all 0.21s;
+    color: var(--primary_color);
+}
+
+.logout_btn {
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    color: var(--primary_color);
+    border: 2px solid var(--primary_color);
+    padding: 6px 50px;
+    font-size: 1.15rem;
+    border-radius: 25px;
+}
+
+.logout_btn:hover, .logout_btn:focus {
+    background-color: var(--primary_color);
+    color: var(--secondary_color);
+    transition: all 1s;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.534);
+    width: 100%;
+    padding: 5px;
+    text-transform: capitalize;
+}
+
+footer p {
+    letter-spacing: 1.5px;
+    color: var(--secondary_color);
+}
+
+footer p a {
+    color: var(--primary_color);
+    text-decoration: none;
+}
+
+footer p a:hover, footer p a:focus {
+    font-size: 1.1rem;
+}

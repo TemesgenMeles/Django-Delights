@@ -2,6 +2,9 @@ from django.shortcuts import render
 from .models import Ingradient, MenuItem, RecipeRequirement, Purchase, PurcahseHistory, Profit
 
 # Create your views here.
+def Index(request):
+    return render(request, "inventory/index.html")
+
 def ShowIngradients(request):
     Ingradients = Ingradient.objects.all()
     context = {
@@ -102,3 +105,6 @@ def All_purchase(request):
     }
     
     return render(request, "inventory/purchase_history.html", context)
+
+def Logout(request):
+    pass
