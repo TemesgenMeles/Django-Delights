@@ -3,7 +3,7 @@
 {% load my_filters %}
 
 {% block title %}
-Django Delight | Menus
+Django Delight | Menus Recipe
 {% endblock %}
 
 {% block head %}
@@ -21,14 +21,13 @@ Django Delight | Menus
     <div class="my_column">
         <div class="side_bar">
             <img src="{% static 'inventory/images/logo.png' %}" alt="logo image">
-            <a href="{% url 'menu_item' %}" class="current">Menus</a>
-            <a href="{% url 'recipes' %}">Recipe</a>
+            <a href="{% url 'menu_item' %}">Menus</a>
+            <a href="{% url 'recipes' %}" class="current">Recipes</a>
         </div>
 
         <div class="tables">
             <div class="table_top">
-                <h2 class="navigation_Menu">Menus</h2>
-                <a href="#" class="add_item"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add Menu</a> 
+                <h2 class="navigation_Menu">Recipes</h2> 
             </div>
             <table>
                 <tr>

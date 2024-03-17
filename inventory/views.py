@@ -25,6 +25,15 @@ def ShowMenu(request):
     
     return render(request, "inventory/menus.html", context)
 
+def ShowRecipe(request):
+    recipe_item = RecipeRequirement.objects.all()
+    
+    context = {
+        "recipes" : recipe_item
+    }
+    
+    return render(request, "inventory/recipe.html", context)
+
 def Purchases(request):
     purchases_item = Purchase.objects.all()
     context = {
