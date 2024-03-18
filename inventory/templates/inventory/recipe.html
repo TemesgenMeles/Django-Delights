@@ -8,7 +8,8 @@ Django Delight | Menus Recipe
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'inventory/css/menu.css' %}">
-<link rel="stylesheet" href="{%static 'inventory/font-awesome/css/font-awesome.min.css' %}"
+<link rel="stylesheet" href="{%static 'inventory/font-awesome/css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'inventory/css/recipe.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -33,23 +34,38 @@ Django Delight | Menus Recipe
                 <tr>
                     <th></th>
                     <th>Menu Item</th>
-                    <th>Price</th>
-                    <th>Reating</th>
-                    <th>Purchase</th>
-                    <th>Update</th>
+                    <th>Ingradient</th>
+                    <th style="text-align: center;">Update</th>
                 </tr>
             {% for item in menu_items %}
         
                 <tr>
-                    <td class="number">{{ forloop.counter }}</td>
-                    <td>{{ item.Title }}</td>
-                    <td>$ {{ item.Price }} </td>
-                    <td class="reating">{% for i in 0|range:item.Reating %}
-                        <i class="fa fa-star"></i>
+                    <td class="number" rowspan="{{item|GetRecipe | length}}">{{ forloop.counter }}</td>
+                    <td rowspan="{{item|GetRecipe | length}}" >{{ item.Title }}</td>
+                        {% for rec in item|GetRecipe %} 
+                            {% if forloop.counter == 1 %}
+                            <td>
+                                {% if rec.Unit == "count" %}
+                                <i class="fa fa-check-circle mycolor"></i> &nbsp;&nbsp;{{ rec.Quantity }} {{ rec.Ingradint.Name }}
+                                {% else %}
+                                <i class="fa fa-check-circle mycolor"></i>&nbsp;&nbsp;{{ rec.Quantity }} {{ rec.Unit }} of {{ rec.Ingradint.Name }}
+                                {% endif %}
+                            </td>
+                            <td class="btn_box" rowspan="{{item|GetRecipe | length}}"><a href="#" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
+
+                            {% else %}
+                            <tr>
+                                <td>
+                                    {% if rec.Unit == "count" %}
+                                    <i class="fa fa-check-circle mycolor"></i> &nbsp;&nbsp;{{ rec.Quantity }} {{ rec.Ingradint.Name }}
+                                    {% else %}
+                                    <i class="fa fa-check-circle mycolor"></i>&nbsp;&nbsp;{{ rec.Quantity }} {{ rec.Unit }} of {{ rec.Ingradint.Name }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            
+                            {% endif %}
                         {% endfor %}
-                    </td>
-                    <td><a href="#" class="btn"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;Buy</a></td>
-                    <td><a href="#" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
                 </tr>
             {% endfor %}
             </table>

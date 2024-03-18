@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: "Acorn bold";
     src: url('../fonts/acorn bold.ttf');
@@ -46,11 +45,6 @@ body {
     letter-spacing: 2.5px;
     font-size: 2.65rem;
     margin-bottom: 1rem;
-}
-
-.main .titles .description {
-    letter-spacing: 1.5px;
-    line-height: 1.52rem;
 }
 
 .my_column {
@@ -103,8 +97,9 @@ body {
 
 .tables .table_top {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     margin: 10px 20px 20px 10px;
+    gap: 1rem;
 }
 
 .tables .table_top .navigation_Menu {
@@ -118,29 +113,58 @@ body {
     content: "";
     position: absolute;
     bottom: 0;
-    right: 5px;
-    width: 70px;
+    left: 55px;
+    width: 80px;
     height: 4px;
     background-color: var(--primary_color);
 }
 
-.tables .table_top .add_item {
-    text-decoration: none;
-    color: var(--primary_color);
-    border: 2px solid var(--primary_color);
+.tables .table_top .my_form {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px 20px;
-    border-radius: 10px;
-    margin-right: 30px;
 }
 
-.tables .table_top .add_item:hover, .tables .table_top .add_item:focus {
-    color: var(--secondary_color);
-    background-color: var(--primary_color);
-    transition: all .5s;
+.tables .table_top .my_form .form_input {
+    display: flex;
+    flex-direction: column;
+    width: 14%;
 }
+
+.tables .table_top .my_form .big {
+    width: 19%;
+}
+
+.tables .table_top .my_form .form_input label {
+    color: var(--secondary_color);
+    width: 80%;
+    margin: auto;
+}
+
+.tables .table_top .my_form .form_input input {
+    background-color: transparent;
+    color: var(--primary_color);
+    border: 2px solid var(--primary_color);
+    width: 85%;
+    margin: auto;
+    font-size: 18px;
+    padding: 2px 10px;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+.tables .table_top .my_form .form_input .btn {
+    width: 80%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.tables .table_top .my_form .form_input .btn:hover {
+    background-color: var(--primary_color);
+    color: var(--secondary_color);
+    box-shadow: 5px 5px 5px var(--secondary_color);
+    transform: translateY(-5px);
+    transition: all 0.4s;
+}
+
 
 .tables table {
     width: 95%;
@@ -167,7 +191,7 @@ body {
 }
 
 .tables table tr td {
-    padding: 5px 0 5px 0;
+    padding: 10px 0;
     color: var(--secondary_color);
     letter-spacing: 1.25px;
 }

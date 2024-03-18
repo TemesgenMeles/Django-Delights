@@ -26,13 +26,15 @@ def ShowMenu(request):
     return render(request, "inventory/menus.html", context)
 
 def ShowRecipe(request):
-    recipe_item = RecipeRequirement.objects.all()
+    menu_items = MenuItem.objects.all()
     
-    context = {
-        "recipes" : recipe_item
+    context ={
+        "menu_items" : menu_items,
     }
     
     return render(request, "inventory/recipe.html", context)
+
+
 
 def Purchases(request):
     purchases_item = Purchase.objects.all()
@@ -86,7 +88,7 @@ def Profit_revenue(request):
         "profit": profit
     }
     
-    return render(request, "inventory/purchase_profit.html", context)
+    return render(request, "inventory/purchase.html", context)
 
 def Confirm_profit(request, start, end, cost, revenue, profit):
     purchases = Purchase.objects.all()

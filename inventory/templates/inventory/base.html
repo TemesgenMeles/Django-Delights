@@ -14,7 +14,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'inventory/css/base.css' %}">
-        
+        <link rel="stylesheet" href="{% static 'inventory/font-awesome/css/font-awesome.min.css' %}">
         {% block head %}
             
         {% endblock %}
@@ -38,7 +38,7 @@
                         <li><a href="{% url 'profit' %}" class="nav_links">Profits</a></li>
                     </ul>
 
-                    <a href="{% url 'logout' %}" class="logout_btn">Logout</a>
+                    <a href="{% url 'logout' %}" class="logout_btn"><i class="fa fa-sign-out" ></i>&nbsp;&nbsp;Logout</a>
                     
                 </div>
 

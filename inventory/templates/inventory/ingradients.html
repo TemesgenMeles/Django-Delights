@@ -1,0 +1,56 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% load my_filters %}
+
+{% block title %}
+Django Delight | Stokes
+{% endblock %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'inventory/css/stock.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="main">
+    <div class="titles">
+        <p class="sub_title">Discover the Art of Flavorful Dining</p>
+        <h2 class="title">Smart Pantry <br> Your Ultimate Ingredient Repository <br><span class="small">with Availability Tracking and Smart Control</span></h2>
+        <p class="description"><span class="bold">Welcome to Smart Pantry</span> <br>Your virtual pantry stocked with top-quality ingredients. With real-time availability checks and smart inventory controls,<br><span class="obliqu">&#8220; we put the power of precision at your fingertips.&#8221;</span> 
+    </div>
+    <div class="tables">
+        <div class="table_top">
+            <h2 class="navigation_Menu">Ingradients</h2>
+            <a href="#" class="add_item"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Ingradient</a> 
+        </div>
+        <table>
+            <tr>
+                <th></th>
+                <th>Ingradient</th>
+                <th>State</th>
+                <th>Amount</th>
+                <th>Price</th>
+                <th>Update</th>
+            </tr>
+
+            
+            {% for item in ingradients %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.Name }}</td>
+                    <td>{{ item.State }}</td>
+                    <td>{{ item.Quantity}} {{ item.Unit }}</td>
+                    <td>$&nbsp;{{ item.Quantity|multi:item.Unit_price }}</td>
+                    <td><a href="#" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
+                </tr>
+            {% endfor %}
+                
+    
+        </table>
+    </div>
+</div>
+{% endblock %}
+    
+    
+    
