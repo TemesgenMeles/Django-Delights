@@ -14,7 +14,7 @@
     box-sizing: border-box;
 }
 body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.404), rgba(0, 0, 0, 0.466)), url(../images/background3.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.404), rgba(0, 0, 0, 0.466)), url(../images/background4.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -57,7 +57,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 60vh;
+    height: 67vh;
     padding-top: 10px;
     padding-inline: 10px;
     gap: 1rem;
@@ -91,8 +91,14 @@ body {
     padding: 0 20px 10px 30px;
     box-shadow: -5px 5px 5px var(--primary_color);
     background-color: rgba(0, 0, 0, 0.637);
-    height: 60vh;
+    height: 67vh;
+    
+}
+
+.tables .tabel {
+    width: 100%;
     overflow-y: scroll;
+    min-height: 70%;
 }
 
 .tables .table_top {
@@ -164,7 +170,6 @@ body {
     transform: translateY(-5px);
     transition: all 0.4s;
 }
-
 
 .tables table {
     width: 95%;

@@ -1,0 +1,59 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% load my_filters %}
+
+{% block title %}
+Django Delight | Stokes
+{% endblock %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'inventory/css/purchase_history.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="main">
+        <div class="titles">
+            <p class="sub_title">Discover the Art of Flavorful Dining</p>
+            <h2 class="title">Enduring Wealth<br>The Journey to Riches Through Resilience</h2>
+        </div>
+
+        <div class="my_column">
+            <div class="side_bar">
+                <img src="{% static 'inventory/images/logo.png' %}" alt="logo image">
+                <a href="{% url 'purchase' %}">New Purchase</a>
+                <a href="{% url 'purchaseHistory' %}" class="current">All Purchase</a>
+            </div>
+    
+            <div class="tables">
+                <div class="table_top">
+                    <h2 class="navigation_Menu">Purchase History</h2>
+                </div>
+                <div class="tabel">
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Menus</th>
+                            <th>Amount</th>
+                            <th>Total Price</th>
+                            <th>Time of Purchase</th>
+                        </tr>
+
+                        {% for item in purchases %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ item.Menu_name }}</td>
+                                <td>{{ item.Quantity }}</td>
+                                <td>{{ item.Total_price }}</td>
+                                <td>{{ item.Timestamp }}</td>
+                                <td><a href="#" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>   
+                </div>
+                
+            </div>
+    </div>
+{% endblock %}
+    

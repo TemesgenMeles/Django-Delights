@@ -23,7 +23,7 @@ Django Delight | Stokes
             <div class="side_bar">
                 <img src="{% static 'inventory/images/logo.png' %}" alt="logo image">
                 <a href="{% url 'purchase' %}" class="current">New Purchase</a>
-                <a href="{% url 'recipes' %}">All Purchase</a>
+                <a href="{% url 'purchaseHistory' %}">All Purchase</a>
             </div>
     
             <div class="tables">
@@ -55,27 +55,30 @@ Django Delight | Stokes
                         </div>
                     </form>
                 </div>
-                <table>
-                    <tr>
-                        <th></th>
-                        <th>Menus</th>
-                        <th>Amount</th>
-                        <th>Total Price</th>
-                        <th>Time of Purchase</th>
-                        <th>Update</th>
-                    </tr>
-
-                    {% for item in purchases %}
+                <div class="tabel">
+                    <table>
                         <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ item.Menu_item.Title }}</td>
-                            <td>{{ item.Quantity }}</td>
-                            <td>{{ item.Total_price}}</td>
-                            <td>{{ item.Timestamp }}</td>
-                            <td><a href="#" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
+                            <th></th>
+                            <th>Menus</th>
+                            <th>Amount</th>
+                            <th>Total Price</th>
+                            <th>Time of Purchase</th>
+                            <th>Update</th>
                         </tr>
-                    {% endfor %}
-                </table>
+
+                        {% for item in purchases %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ item.Menu_item.Title }}</td>
+                                <td>{{ item.Quantity }}</td>
+                                <td>{{ item.Total_price}}</td>
+                                <td>{{ item.Timestamp }}</td>
+                                <td><a href="#" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>   
+                </div>
+                
             </div>
     </div>
 {% endblock %}
