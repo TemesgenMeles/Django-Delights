@@ -63,7 +63,6 @@ Django Delight | Stokes
                             <th>Amount</th>
                             <th>Total Price</th>
                             <th>Time of Purchase</th>
-                            <th>Update</th>
                         </tr>
 
                         {% for item in purchases %}
@@ -73,7 +72,6 @@ Django Delight | Stokes
                                 <td>{{ item.Quantity }}</td>
                                 <td>{{ item.Total_price}}</td>
                                 <td>{{ item.Timestamp }}</td>
-                                <td><a href="#" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
                             </tr>
                         {% endfor %}
                     </table>   

@@ -107,7 +107,9 @@ nav {
 .logout_btn:hover, .logout_btn:focus {
     background-color: var(--primary_color);
     color: var(--secondary_color);
-    transition: all 1s;
+    box-shadow: 5px 5px 5px var(--secondary_color);
+    transform: translateY(-5px);
+    transition: all 0.5s;
 }
 
 footer {

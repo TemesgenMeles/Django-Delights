@@ -1,0 +1,58 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% load my_filters %}
+
+{% block title %}
+Django Delight | Profites
+{% endblock %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'inventory/css/all_profit.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="main">
+        <div class="titles">
+            <p class="sub_title">Discover the Art of Flavorful Dining</p>
+            <h2 class="title">Enduring Wealth<br>The Journey to Riches Through Resilience</h2>
+        </div>
+
+        <div class="my_column">
+            <div class="tables">
+                <div class="table_top">
+                    <h2 class="navigation_Menu">Profites</h2>
+                    <div class="profit_container">
+                        <label>Total Profit</label>
+                        <input type="text" value="{{total_profit}}" disabled>
+                    </div>
+                </div>
+                <div class="tabel">
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>From:</th>
+                            <th>Until:</th>
+                            <th>Cost</th>
+                            <th>Revenue</th>
+                            <th>Profit</th>
+                        </tr>
+
+                        {% for item in profites %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ item.Timestamp_start }}</td>
+                                <td>{{ item.Timestamp_end }}</td>
+                                <td>{{ item.Cost }}</td>
+                                <td>{{ item.Revenue }}</td>
+                                <td>{{ item.Profit }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>   
+                </div>
+                
+            </div>
+    </div>
+{% endblock %}
+    

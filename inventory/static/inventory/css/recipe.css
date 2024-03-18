@@ -1,6 +1,11 @@
 .tables table tr td .btn {
     padding: 10px 25px;
 }
+
+.tables table tr td .btn:hover, .tables table tr td .btn:focus {
+    box-shadow: 5px 5px 5px var(--secondary_color);
+}
+
 .btn_box {
     text-align: center;
 }

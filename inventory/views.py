@@ -100,10 +100,18 @@ def Confirm_profit(request, start, end, cost, revenue, profit):
         
     Profit(Cost = cost, Revenue = revenue, Profit = profit, Timestamp_start = start, Timestamp_end = end).save()
     
-    profites = Profit.objects.all()
+    Profit(request)
+
+def All_Profit(request):
+    profites = Profit.objects.order_by("-pk")  
+    total_profit = 0
     
+    for item in profites:
+        total_profit += item.Profit
+        
     context = {
-        "profites": profites
+        "profites": profites,
+        "total_profit": total_profit
     }
     
     return render(request, "inventory/all_profit.html", context)
