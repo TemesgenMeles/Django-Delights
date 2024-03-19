@@ -1,0 +1,83 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% load my_filters %}
+
+{% block title %}
+Django Delight | Stokes
+{% endblock %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'inventory/css/purchase.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="main">
+        <div class="titles">
+            <p class="sub_title">Discover the Art of Flavorful Dining</p>
+            <h2 class="title">Enduring Wealth<br>The Journey to Riches Through Resilience</h2>
+        </div>
+
+        <div class="my_column">
+            <div class="side_bar">
+                <img src="{% static 'inventory/images/logo.png' %}" alt="logo image">
+                <a href="{% url 'purchase' %}" class="current">New Purchase</a>
+                <a href="{% url 'purchaseHistory' %}">All Purchase</a>
+            </div>
+    
+            <div class="tables">
+                <div class="table_top">
+                    <h2 class="navigation_Menu">Purchase</h2>
+                    <form action="" class="my_form">
+                        <div class="form_input big">
+                            <label for="start_time">From:</label>
+                            <input type="text" name="start_time" value="{{ start_time }}" disabled>
+                        </div>
+                        <div class="form_input big">
+                            <label for="end_time">Until:</label>
+                            <input type="text" name="end_time" value="{{ end_time }}" disabled>
+                        </div>
+                        <div class="form_input">
+                            <label for="cost">Cost:</label>
+                            <input type="text" name="cost" value="{{cost|short}}" disabled>
+                        </div>
+                        <div class="form_input">
+                            <label for="revenue">Revenue:</label>
+                            <input type="text" name="revenue" value="{{revenue|short}}" disabled>
+                        </div>
+                        <div class="form_input">
+                            <label for="profit">Profit:</label>
+                            <input type="text" name="profit" value="{{profit|short}}" disabled>
+                        </div>
+                        <div class="form_input submit">
+                            <input type="submit" value="Save" class="btn">
+                        </div>
+                    </form>
+                </div>
+                <div class="tabel">
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Menus</th>
+                            <th>Amount</th>
+                            <th>Total Price</th>
+                            <th>Time of Purchase</th>
+                        </tr>
+
+                        {% for item in purchases %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ item.Menu_item.Title }}</td>
+                                <td>{{ item.Quantity }}</td>
+                                <td>{{ item.Total_price}}</td>
+                                <td>{{ item.Timestamp }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>   
+                </div>
+                
+            </div>
+    </div>
+{% endblock %}
+    

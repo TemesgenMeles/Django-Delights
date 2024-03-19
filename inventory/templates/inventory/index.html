@@ -1,0 +1,22 @@
+{% extends "inventory/base.html" %}
+{% load static%}
+
+{% block title %}
+Django Delight | Home
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'inventory/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile">
+    <h2 class="name">Welcome <span>Temesgen Meles</span></h2>
+</div>
+<div class="main">
+    <p class="sub_title">Discover the Art of Flavorful Dining</p>
+    <h1 class="title">Flavor Fusion Eatery: <br> Where Every Bite Tells a Story</h1>
+    <p class="sub_sub_title">"Elevating Your Culinary Operations: A Comprehensive Online Solution for Streamlining Inventory<br> Management, Minimizing Waste, and Maximizing Efficiency in the Restaurant Industry."</p>
+</div>
+
+{% endblock %}

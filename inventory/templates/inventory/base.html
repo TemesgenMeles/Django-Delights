@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+        {% block  title %}
+            
+        {% endblock %}
+        </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'inventory/css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'inventory/font-awesome/css/font-awesome.min.css' %}">
+        {% block head %}
+            
+        {% endblock %}
+            
+    </head>
+    <body>
+
+        <header>
+            <nav>
+                <div class="logo">
+                    <a href="{% url 'index' %}">
+                        <img src="{% static 'inventory/images/logo.png' %}" alt="logo image">
+                    </a>
+                </div>
+                <div class="navigation">
+                    <ul>
+                        <li><a href="{% url 'index' %}" class="nav_links">Home</a></li>
+                        <li><a href="{% url 'menu_item' %}" class="nav_links">Menus</a></li>
+                        <li><a href="{% url 'stocks' %}" class="nav_links">Stocks</a></li>
+                        <li><a href="{% url 'purchase' %}" class="nav_links">Shop</a></li>
+                        <li><a href="{% url 'profit' %}" class="nav_links">Profits</a></li>
+                    </ul>
+
+                    <a href="{% url 'logout' %}" class="logout_btn"><i class="fa fa-sign-out" ></i>&nbsp;&nbsp;Logout</a>
+                    
+                </div>
+
+            </nav>
+        </header>
+        
+        {% block content %}
+            
+        {% endblock %}
+        
+        <footer>
+            <p>This is done by <a href="www.youtube.com" target="_blank">Temesgen</a> with Love</p>
+        </footer>
+    </body>
+</html>

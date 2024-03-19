@@ -1,0 +1,76 @@
+{% extends "inventory/base.html" %}
+{% load static %}
+{% load my_filters %}
+
+{% block title %}
+Django Delight | Menus Recipe
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'inventory/css/menu.css' %}">
+<link rel="stylesheet" href="{%static 'inventory/font-awesome/css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'inventory/css/recipe.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="titles">
+        <p class="sub_title">Discover the Art of Flavorful Dining</p>
+        <h2 class="title">Chef's Choice Catalog: <br>Trusted Products for Recipe Innovation</h2>
+        <p class="description">Experience a culinary journey with our Test Full Menu, featuring a tantalizing array of dishes crafted to perfection. From sizzling <br> steaks to Mediterranean delights, seafood specialties to wholesome vegetarian options, each dish is a masterpiece of flavor and finesse. <br> Indulge in a symphony of tastes that will leave you craving more.</p>
+    </div>
+    <div class="my_column">
+        <div class="side_bar">
+            <img src="{% static 'inventory/images/logo.png' %}" alt="logo image">
+            <a href="{% url 'menu_item' %}">Menus</a>
+            <a href="{% url 'recipes' %}" class="current">Recipes</a>
+        </div>
+
+        <div class="tables">
+            <div class="table_top">
+                <h2 class="navigation_Menu">Recipes</h2> 
+            </div>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Menu Item</th>
+                    <th>Ingradient</th>
+                    <th style="text-align: center;">Update</th>
+                </tr>
+            {% for item in menu_items %}
+        
+                <tr>
+                    <td class="number" rowspan="{{item|GetRecipe | length}}">{{ forloop.counter }}</td>
+                    <td rowspan="{{item|GetRecipe | length}}" >{{ item.Title }}</td>
+                        {% for rec in item|GetRecipe %} 
+                            {% if forloop.counter == 1 %}
+                            <td>
+                                {% if rec.Unit == "count" %}
+                                <i class="fa fa-check-circle mycolor"></i> &nbsp;&nbsp;{{ rec.Quantity }} {{ rec.Ingradint.Name }}
+                                {% else %}
+                                <i class="fa fa-check-circle mycolor"></i>&nbsp;&nbsp;{{ rec.Quantity }} {{ rec.Unit }} of {{ rec.Ingradint.Name }}
+                                {% endif %}
+                            </td>
+                            <td class="btn_box" rowspan="{{item|GetRecipe | length}}"><a href="#" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
+
+                            {% else %}
+                            <tr>
+                                <td>
+                                    {% if rec.Unit == "count" %}
+                                    <i class="fa fa-check-circle mycolor"></i> &nbsp;&nbsp;{{ rec.Quantity }} {{ rec.Ingradint.Name }}
+                                    {% else %}
+                                    <i class="fa fa-check-circle mycolor"></i>&nbsp;&nbsp;{{ rec.Quantity }} {{ rec.Unit }} of {{ rec.Ingradint.Name }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            
+                            {% endif %}
+                        {% endfor %}
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

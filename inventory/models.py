@@ -29,6 +29,7 @@ class Ingradient(models.Model):
 class MenuItem(models.Model):
     Title = models.CharField(max_length=30)
     Price = models.FloatField()
+    Reating = models.IntegerField(default=3)
     Status = models.BooleanField(default=True)
     
 class RecipeRequirement(models.Model):

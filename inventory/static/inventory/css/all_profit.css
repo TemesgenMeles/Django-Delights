@@ -1,0 +1,188 @@
+@font-face {
+    font-family: "Acorn bold";
+    src: url('../fonts/acorn bold.ttf');
+}
+
+:root {
+    --primary_color: rgb(255, 64, 24);
+    --secondary_color: whitesmoke;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.534), rgba(0, 0, 0, 0.521)), url(../images/background5.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main {
+    padding: 20px 10px 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main .titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--secondary_color);
+    margin-bottom: 1.3rem;
+}
+
+.main .titles .sub_title {
+    letter-spacing: 2.5px;
+    margin-bottom: 1rem;
+}
+
+.main .titles .title {
+    color: var(--primary_color);
+    text-shadow: 2px 2px 2px var(--secondary_color);
+    letter-spacing: 2.5px;
+    font-size: 2.65rem;
+    margin-bottom: 1rem;
+    line-height: 2.6rem;
+}
+
+.main .titles .title .small {
+    font-size: 1.5rem;
+    text-shadow: 0.5px 0.5px 0.7px var(--secondary_color);
+    line-height: 2rem;
+}
+
+.main .titles .description {
+    letter-spacing: 1.5px;
+    line-height: 1.52rem;
+}
+
+.main .titles .description .bold {
+    font-size: larger;
+}
+
+.main .titles .description .obliqu {
+    font-style: oblique;
+}
+
+.tables {
+    margin: auto;
+    width: 90%;
+    height: 65vh;
+    background-color: rgba(0, 0, 0, 0.616);
+    box-shadow: -5px 5px 5px var(--primary_color);
+}
+
+.tables .table_top {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 20px 20px 40px;
+}
+
+.tables .table_top .navigation_Menu {
+    color: var(--secondary_color);
+    font-size: 1.85rem;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.tables .table_top .navigation_Menu::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    width: 99px;
+    height: 4px;
+    background-color: var(--primary_color);
+}
+
+.tables .table_top .profit_container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.tables .table_top .profit_container label {
+    color: var(--secondary_color);
+    font-size: 18px;
+    letter-spacing: 1.25px;
+}
+
+.tables .table_top .profit_container input {
+    border: 2px solid var(--primary_color);
+    background-color: transparent;
+    color: var(--primary_color);
+    font-family: inherit;
+    font-size: 18px;
+    padding: 2px 10px;
+    border-radius: 4px;
+    width: 10rem;
+}
+
+.tables .tabel {
+    width: 100%;
+    overflow-y: scroll;
+    min-height: calc(100% - 4rem);
+}
+
+.tables table {
+    width: 95%;
+    margin-left: 10px;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.tables table tr {
+    border-bottom: 2px solid var(--primary_color);
+}
+
+.tables table tr:nth-child(odd){
+    background-color: rgba(255, 62, 24, 0.322);;
+}
+
+.tables table tr th {
+    border-top: 2px solid var(--primary_color);
+    text-align: start;
+    padding: 5px 0 5px 10px;
+    color: var(--secondary_color);
+    background-color: var(--primary_color);
+    font-size: 1.05rem;
+    letter-spacing: 1.5px;
+}
+
+.tables table tr td {
+    padding: 10px 0;
+    color: var(--secondary_color);
+    letter-spacing: 1.25px;
+}
+
+.tables table tr td .btn {
+    text-decoration: none;
+    color: var(--primary_color);
+    border: 2px solid var(--primary_color);
+    padding: 3px 15px;
+    border-radius: 5px;
+}
+
+.tables table tr td .btn:hover, .tables table tr td .btn:focus {
+    color: var(--secondary_color);
+    background-color: var(--primary_color);
+    transition: all 0.5s;
+}
+
+.tables table tr:nth-child(odd) td .btn {
+    color: var(--secondary_color);
+    border-color: var(--secondary_color);
+}
+
+.tables table tr:nth-child(odd) td .btn:hover, .tables table tr:nth-child(odd) td .btn:focus {
+    color: var(--primary_color);
+    background-color: var(--secondary_color);
+    transition: all 0.5s;
+}
+
+
+

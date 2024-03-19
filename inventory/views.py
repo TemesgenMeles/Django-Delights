@@ -2,6 +2,9 @@ from django.shortcuts import render
 from .models import Ingradient, MenuItem, RecipeRequirement, Purchase, PurcahseHistory, Profit
 
 # Create your views here.
+def Index(request):
+    return render(request, "inventory/index.html")
+
 def ShowIngradients(request):
     Ingradients = Ingradient.objects.all()
     context = {
@@ -15,12 +18,23 @@ def DeleteIngradients(request, id):
     return ShowIngradients(request)
     
 def ShowMenu(request):
-    menu_items = MenuItem.objects.all()
+    menu_items = MenuItem.objects.order_by("-Reating")
     context = {
-        "menu_items" : menu_items
+        "menu_items" : menu_items,
     }
     
     return render(request, "inventory/menus.html", context)
+
+def ShowRecipe(request):
+    menu_items = MenuItem.objects.all()
+    
+    context ={
+        "menu_items" : menu_items,
+    }
+    
+    return render(request, "inventory/recipe.html", context)
+
+
 
 def Purchases(request):
     purchases_item = Purchase.objects.all()
@@ -74,7 +88,7 @@ def Profit_revenue(request):
         "profit": profit
     }
     
-    return render(request, "inventory/purchase_profit.html", context)
+    return render(request, "inventory/purchase.html", context)
 
 def Confirm_profit(request, start, end, cost, revenue, profit):
     purchases = Purchase.objects.all()
@@ -86,10 +100,18 @@ def Confirm_profit(request, start, end, cost, revenue, profit):
         
     Profit(Cost = cost, Revenue = revenue, Profit = profit, Timestamp_start = start, Timestamp_end = end).save()
     
-    profites = Profit.objects.all()
+    Profit(request)
+
+def All_Profit(request):
+    profites = Profit.objects.order_by("-pk")  
+    total_profit = 0
     
+    for item in profites:
+        total_profit += item.Profit
+        
     context = {
-        "profites": profites
+        "profites": profites,
+        "total_profit": total_profit
     }
     
     return render(request, "inventory/all_profit.html", context)
@@ -102,3 +124,6 @@ def All_purchase(request):
     }
     
     return render(request, "inventory/purchase_history.html", context)
+
+def Logout(request):
+    pass
