@@ -38,7 +38,7 @@ nav {
 }
 
 .logo {
-    width: calc(20% - 10px);
+    width: calc(30% - 10px);
 }
 
 .logo a{
@@ -49,12 +49,12 @@ nav {
 }
 
 .logo a img{
-    width: 20%;
+    width: 40%;
     height: auto;
 }
 
 .navigation {
-    width: calc(80% - 10px);
+    width: calc(70% - 10px);
     display: flex;
     align-items: center;
     justify-content: flex-end;

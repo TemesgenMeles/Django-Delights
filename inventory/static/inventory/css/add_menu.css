@@ -1,0 +1,178 @@
+
+@font-face {
+    font-family: "Acorn bold";
+    src: url('../fonts/acorn bold.ttf');
+}
+
+:root {
+    --primary_color: rgb(255, 64, 24);
+    --secondary_color: whitesmoke;
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.404), rgba(0, 0, 0, 0.466)), url(../images/background3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main {
+    padding: 20px 10px 0 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 3rem 0 3rem;
+    height: 85vh;
+    background-color: rgba(0, 0, 0, 0.384);
+    box-shadow: 5px 5px 5px var(--primary_color);
+}
+
+.main .main_nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main .main_nav .menu_title {
+    color: var(--secondary_color);
+    font-size: 3rem;
+    text-transform: capitalize;
+}
+
+.main .main_nav .links a {
+    text-decoration: none;
+    color: var(--secondary_color);
+    font-size: 1.3rem;
+}
+
+.main .main_nav .links a:hover, .main .main_nav .links a:focus, .main .main_nav .links .current {
+    color: var(--primary_color);
+    text-shadow: 2px 2px 3px var(--secondary_color);
+    transform: translateY(10px);
+}
+
+.main .my_forms {
+    display: flex;
+    flex-direction: column;
+}
+
+.main .my_forms .logo {
+    width: calc(16% - 10px);
+    margin: auto;
+    border: 2px solid var(--primary_color);
+}
+
+.main .my_forms .logo img {
+    width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+.main .my_forms .my_form {
+    background-color: rgba(0, 0, 0, 0.39);
+    width: 70%;
+    margin: auto;
+    height: 50vh;
+    padding: 10px 30px;
+    box-shadow: -5px -5px  5px var(--primary_color);
+    border: 2px solid var(--primary_color);
+    border-radius: 10px;
+}
+
+.my_form form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+}
+
+.my_form form .row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: auto;
+}
+
+.my_form form .row .col_1{
+    width: calc(45% - 5px);
+    height: 38vh;
+    border: 2px solid var(--primary_color);
+}
+
+.my_form form .row .col_1 .menu, .ingradient {
+    color: var(--secondary_color);
+    font-size: 1.5rem;
+    letter-spacing: 1.5px;
+    position: relative;
+    margin-bottom: 1.5rem;
+    margin-left: 40px;
+}
+
+.my_form form .row .col_1 .menu::after, .ingradient::after {
+    content: '';
+    position: absolute;
+    width: 3.5rem;
+    height: 4px;
+    background-color: var(--primary_color);
+    left: 15px;
+    bottom: 0;
+}
+
+.col_1 .input {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-inline: 10px;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.col_1 .input label {
+    color: var(--secondary_color);
+    letter-spacing: 1.3px;
+}
+
+.col_1 .input label .star {
+    color: var(--primary_color);
+}
+
+.col_1 .input input {
+    border: 2px solid var(--primary_color);
+    color: var(--primary_color);
+    padding-inline-start: 10px;
+    background-color: transparent;
+    font-family: inherit;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    width: 70%;
+    letter-spacing: 1.3px;
+}
+
+.col_1 .img {
+    width: 30%;
+    margin: auto;
+}
+
+.col_1 .img img {
+    width: 100%;
+    height: auto;
+}
+
+
+
+.ingradient::after {
+    left: 45px;
+    width: 4.5rem;
+}
+
+.main .my_forms .my_form form .row .col_2 {
+    width: calc(55% - 5px);
+    height: 38vh;
+    border: 2px solid var(--primary_color);
+}
+
+

@@ -28,3 +28,8 @@ def multi(num1, num2):
 def short(num):
     return "%.2f" %num
 
+@register.filter(name="module")
+def module(loop, num):
+    return loop % num
+
+
