@@ -1,0 +1,66 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% load my_filters %}
+
+{% block title%}
+Django Delights | Create Menu Item
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'inventory/css/add_menu.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <div class="main_nav">
+            <h2 class="menu_title">Add Menus</h2>
+            <p class="links"><a href="{% url 'index' %}">Home -> </a>&nbsp;&nbsp;&nbsp;<a href="{% url 'menu_item' %}">Menus -> </a>&nbsp;&nbsp;&nbsp;<a href="{% url 'Add_menu' %}" class="current">Add Menus</a></p>
+        </div>
+
+        <div class="my_forms">
+            <div class="logo">
+                <img src="{% static 'inventory/images/logo vertical.png' %}" alt="">
+            </div>
+            <div class="my_form">
+                <form action="">
+                    <div class="row">
+                        <div class="col_1">
+                            <h2 class="menu">Menus</h2>
+                            <div class="input">
+                                <label for="title">Menu Title <span class="star">*</span></label>
+                                <input type="text" name="title" required>
+                            </div>
+                            <div class="input">
+                                <label for="price">price <span class="star">*</span></label>
+                                <input type="number" name="price" required>
+                            </div>
+                            <div class="img">
+                                <img src="{% static 'inventory/images/logo.png' %}" alt="logo">
+                            </div>
+                            
+                        </div>
+                        <div class="col_2">
+                            <h2 class="ingradient">Ingradients</h2>
+                            <div class="ing_row">
+                                {% for ing_item in ingradients %}
+                                    <input type="checkbox" name="ingradient_list">{{ ing_item.Name}}
+                                {% endfor %}
+                            </div>
+                
+                            <div class="other_btn">
+                                <a href="">Other</a>
+                            </div>
+                        </div>
+                    </div>
+                        
+
+                    <div class="submit_data">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Clear">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <h1>ajhfdoqwj</h1>
+{% endblock %}

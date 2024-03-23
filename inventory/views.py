@@ -125,5 +125,13 @@ def All_purchase(request):
     
     return render(request, "inventory/purchase_history.html", context)
 
+def Add_Menus(request):
+    ingradients = Ingradient.objects.all()
+    context = {
+        "ingradients" : ingradients
+    }
+    
+    return render(request, "inventory/Add_menu.html", context)
+
 def Logout(request):
     pass
