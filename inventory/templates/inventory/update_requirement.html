@@ -37,7 +37,11 @@ Django Delights | Create Menu Item
                         <label for="unit">Unit <span>*</span></label>
                         <select name="unit">
                             {% for unit in units %}
-                            <option value="{{unit}}">{{unit}}</option>
+                            {% if unit == "gram" %}
+                                <option value="{{unit}}" selected>{{unit}}</option>
+                            {% else %}
+                                <option value="{{unit}}">{{unit}}</option>
+                            {% endif %}
                             {% endfor %}
                         </select>
                     </div>
