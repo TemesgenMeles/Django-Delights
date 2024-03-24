@@ -36,7 +36,7 @@ class RecipeRequirement(models.Model):
     Menu_item = models.ForeignKey("MenuItem", verbose_name=("Menu Item"), on_delete=models.CASCADE)
     Ingradint = models.ForeignKey("Ingradient", verbose_name=("Recipe"), on_delete=models.PROTECT)
     Quantity = models.FloatField(default=0, blank=False, null=False)
-    Unit = models.CharField(max_length=6, choices=units)
+    Unit = models.CharField(default="gram", max_length=6, choices=units)
     
 class Purchase(models.Model):
     Menu_item = models.ForeignKey("MenuItem", verbose_name=("Menu Item"), on_delete=models.PROTECT)

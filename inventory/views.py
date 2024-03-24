@@ -133,5 +133,81 @@ def Add_Menus(request):
     
     return render(request, "inventory/Add_menu.html", context)
 
+def SubmitMenu(request):
+    context = {}
+    if request.method == "POST":
+        title = request.POST["title"]
+        price = request.POST["price"]
+        reating = request.POST["reating"]
+        ingradient_list = request.POST.getlist("ingradient_list")
+        print(ingradient_list)
+        AddMenus = MenuItem(Title = title, Price = price, Reating = reating, Status = False)
+        AddMenus.save()
+        FeachMenuItem = MenuItem.objects.get(Title = title, Price = price, Reating = reating)
+        for item in ingradient_list:
+            FeachIngradient = Ingradient.objects.get(id = item)
+            AddRecipeRequirement = RecipeRequirement(Menu_item = FeachMenuItem, Ingradint = FeachIngradient)
+            AddRecipeRequirement.save()
+        
+        feachRecipe = RecipeRequirement.objects.filter(Menu_item = FeachMenuItem)
+        units = [
+            "teaspoon",
+            "tablespoon",
+            "pound",
+            "gram",
+            "kilogram",
+            "ounce",
+            "mililitre",
+            "litre",
+            "glass",
+            "gallon",
+            "count"
+        ]
+        
+        context = {
+            "RecipeIngradients": feachRecipe,
+            "units": units,
+            "title": title,
+        }
+        
+    return render(request, "inventory/update_requirement.html", context)
+
+def SubmitRecipes(request, rrid):
+    if request.method == "POST":
+        #rrid = request.POST['id']
+        quantity = request.POST['quantity']
+        unit = request.POST['unit']
+
+        feachRR = RecipeRequirement.objects.get(id = rrid)
+        feachRR.Quantity = quantity
+        feachRR.Unit = unit
+        feachRR.save()
+        
+        FeachMenuItem = feachRR.Menu_item
+        
+        feachRecipe = RecipeRequirement.objects.filter(Menu_item = FeachMenuItem)
+        units = [
+            "teaspoon",
+            "tablespoon",
+            "pound",
+            "gram",
+            "kilogram",
+            "ounce",
+            "mililitre",
+            "litre",
+            "glass",
+            "gallon",
+            "count"
+        ]
+        
+        context = {
+            "RecipeIngradients": feachRecipe,
+            "units": units,
+            "title": FeachMenuItem.Title 
+        }
+    
+    return render(request, "inventory/update_requirement.html", context)
+        
+
 def Logout(request):
     pass

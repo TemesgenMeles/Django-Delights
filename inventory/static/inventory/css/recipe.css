@@ -1,3 +1,8 @@
+.tables table {
+    height: fit-content;
+}
+
+
 .tables table tr td .btn {
     padding: 10px 25px;
 }
@@ -16,4 +21,8 @@
 
 .tables table tr:nth-child(odd) td .mycolor {
     color: var(--secondary_color);
+}
+
+.tables table tr:nth-child(odd) td .btn:hover, .tables table tr:nth-child(odd) td .btn:focus {
+    box-shadow: 5px 5px 5px var(--primary_color);
 }

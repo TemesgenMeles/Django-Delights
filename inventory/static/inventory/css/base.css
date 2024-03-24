@@ -134,5 +134,5 @@ footer p a {
 }
 
 footer p a:hover, footer p a:focus {
-    font-size: 1.1rem;
+    color: rgb(255, 45, 4);;
 }
