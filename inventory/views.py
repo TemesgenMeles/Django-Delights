@@ -140,7 +140,6 @@ def SubmitMenu(request):
         price = request.POST["price"]
         reating = request.POST["reating"]
         ingradient_list = request.POST.getlist("ingradient_list")
-        print(ingradient_list)
         AddMenus = MenuItem(Title = title, Price = price, Reating = reating, Status = False)
         AddMenus.save()
         FeachMenuItem = MenuItem.objects.get(Title = title, Price = price, Reating = reating)
@@ -207,7 +206,18 @@ def SubmitRecipes(request, rrid):
         }
     
     return render(request, "inventory/update_requirement.html", context)
-        
 
+def Buy(request, itemID):
+    
+    Menu_item_id = itemID
+    
+    purchase_item = MenuItem.objects.get(id = Menu_item_id)
+    
+    context = {
+        "purchase_item" : purchase_item,
+    }
+    
+    return render(request, "inventory/purchase_conformation.html", context)
+    
 def Logout(request):
     pass

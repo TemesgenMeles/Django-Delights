@@ -29,7 +29,7 @@ body {
     flex-direction: column;
     margin: 1rem 3rem 0 3rem;
     height: 85vh;
-    background-color: rgba(0, 0, 0, 0.384);
+    background-color: rgba(0, 0, 0, 0.534);
     box-shadow: 5px 5px 5px var(--primary_color);
 }
 
@@ -42,6 +42,10 @@ body {
     color: var(--secondary_color);
     font-size: 3rem;
     text-transform: capitalize;
+}
+
+.main .main_nav .menu_title span {
+    color: var(--primary_color);
 }
 
 .main .main_nav .links a {
@@ -62,7 +66,7 @@ body {
     flex-direction: column;
     gap: 1rem;
     height: 100%;
-    border: 2px solid var(--primary_color);
+    background-color: rgba(0, 0, 0, 0.432);
     overflow-y: scroll;
 }
 
@@ -93,6 +97,7 @@ body {
 
 .item form .inputs input,  .item form .inputs select{
     border: 2px solid var(--primary_color);
+    border-radius: 10px;
     width: 100%;
     background-color: transparent;
     font-size: 1.3rem;
@@ -104,4 +109,29 @@ body {
 
 .item form .inputs select {
     text-transform: capitalize;
+}
+
+.item form .button {
+    width: calc(25% - 10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item form .button .btn {
+    padding: 5px 30px;
+    border: 2px solid var(--primary_color);
+    background-color: transparent;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 1.2rem;
+    color: var(--primary_color);
+}
+
+.item form .button .btn:hover {
+    background-color: var(--primary_color);
+    color: var(--secondary_color);
+    box-shadow: 5px 5px 5px var(--secondary_color);
+    transform: translateY(-5px);
+    transition: all 0.5s;
 }

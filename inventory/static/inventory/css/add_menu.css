@@ -65,6 +65,9 @@ body {
     width: calc(16% - 10px);
     margin: auto;
     border: 2px solid var(--primary_color);
+    border-radius: 10px;
+    box-shadow: -5px -5px 5px var(--primary_color);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .main .my_forms .logo img {
@@ -74,7 +77,7 @@ body {
 }
 
 .main .my_forms .my_form {
-    background-color: rgba(0, 0, 0, 0.39);
+    background-color: rgba(0, 0, 0, 0.5);
     width: 70%;
     margin: auto;
     height: 50vh;
