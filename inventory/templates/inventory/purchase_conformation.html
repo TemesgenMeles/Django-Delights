@@ -7,35 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menus</title>
     <link rel="stylesheet" href="{% static 'inventory/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'inventory/css/conformation.css' %}">
 </head>
 <body>
     <div class="main">
-        <button onclick="backtoMenu()"><i class="fa fa-times-circle-o" aria-hidden="true"></i></button>
+        <button onclick="backtoMenu()" class="close"><i class="fa fa-times" aria-hidden="true"></i></button>
         <div class="my_forms">
             <div class="logo">
                 <img src="{% static 'inventory/images/logo vertical.png' %}" alt="logo">
             </div>
             <div class="my_form">
-                <form action="">
+                <form action="{% url 'buy' %}" method="post">
+                    {% csrf_token %} 
                     <div class="headers">
+                        <input type="text" name="MIid" value="{{purchase_item.id}}" disabled hidden>
                         <div class="input_items_menu_reating">
                             <input type="text" name="menu" value="{{ purchase_item.Title }}" disabled>
-                            {% for i in 0|range:purchase_item.Reating %}
-                            <label for="reating"><i class="fa fa-star" aria-hidden="true"></i></label>
-                            {%endfor%}
+                            <div class="reatings">
+                                {% for i in 0|range:purchase_item.Reating %}
+                                <label for="reating"><i class="fa fa-star" aria-hidden="true"></i></label> &nbsp;
+                                {%endfor%}
+                            </div> 
                         </div>
+
                         <div class="input_items_price">
                             <label for="price">$</label>
                             <input type="number" name="price" id="price" step="0.01" value="{{ purchase_item.Price }}" disabled>
                         </div>
                     </div>
                     <div class="quantity">
-                        <label for="quantity">Quantity</label>
+                        <label for="quantity">Quantity:&nbsp;&nbsp;</label>
                         <input type="number" value="1" name="quantity"  onkeyup="UpdatePrice(this.value)">
                     </div>
                     <div class="buttons">
-                        <input type="submit" value="Buy">
-                        <a href="{% url 'menu_item' %}">Cancel</a>
+                        <input type="submit" value="Buy" class="btn buy_btn">
+                        <a href="{% url 'menu_item' %}" class="btn">Cancel</a>
                     </div>
                 </form>
             </div>
@@ -50,7 +56,7 @@
         function backtoMenu(){
             location.replace("{% url 'menu_item' %}")
         }
-        
+
         function UpdatePrice(num){
             price = num * parseFloat('{{ purchase_item.Price }}')
             document.getElementById("price").value = price;

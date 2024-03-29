@@ -219,5 +219,18 @@ def Buy(request, itemID):
     
     return render(request, "inventory/purchase_conformation.html", context)
     
+def buy_function(request):
+    if request.method == "POST":
+        MIid = request.POST['MIid']
+        price = request.POST['price']
+        quantity = request.POST['quantity']
+        
+        menuItem = MenuItem.objects.get(id=MIid)
+
+        Purchase(Menu_item = menuItem, Quantity = quantity, Total_price = price).save()
+        
+    return ShowMenu(request)
+        
+    
 def Logout(request):
     pass
