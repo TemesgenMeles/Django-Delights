@@ -2,9 +2,12 @@ from django.shortcuts import render
 from .models import Ingradient, MenuItem, RecipeRequirement, Purchase, PurcahseHistory, Profit
 
 # for calculating unit values
+# changing the quantity into mililiter and gram based on their state
 def to_gram(state, unit, quantity):
     result = 0
+    # if it's state solid change the quantity into gram
     if state == "solid":
+        # change into gram based on thier units
         if unit == "teaspoon":
             result = quantity * 5
         elif unit == "tablespoon":
@@ -15,9 +18,11 @@ def to_gram(state, unit, quantity):
             result = quantity * 1000
         elif unit == "ounce":
             result = quantity * 28.3
-        else :
+        else : # if it is not in the above it is a gram unit so we don't have to change any thing
             result = quantity
-    elif state == "liquid":
+    # if is's state liquid change the quantity into mililiter
+    elif state == "liquid":\
+        # change into mililiter based on thier units
         if unit == "teaspoon":
             result = quantity * 5
         elif unit == "tablespoon":
@@ -30,15 +35,17 @@ def to_gram(state, unit, quantity):
             result = quantity * 28.4
         elif unit == "litre":
             result = quantity * 1000
-        else :
+        else : # if it is not in the above it is a mililiter unit so we don't have to change any thing
             result = quantity
-    else :
+    else : # if it is not solid or liquid so it is count we don't have to change any thing
         result = quantity
     result = "%.2f" %result
     return result
 
+# changing the quantity from mililiter and gram into their state
 def from_gram(state, unit, quantity):
     result = 0
+    # if the state is solid we change it form gram
     if state == "solid":
         if unit == "teaspoon":
             result = quantity / 5
@@ -52,6 +59,7 @@ def from_gram(state, unit, quantity):
             result = quantity / 28.3
         else :
             result = quantity
+    # if the state is liquid we change it from mililiter
     elif state == "liquid":
         if unit == "teaspoon":
             result = quantity / 5
@@ -67,8 +75,10 @@ def from_gram(state, unit, quantity):
             result = quantity / 1000
         else :
             result = quantity
+    # if the state is nither solid nor liquid we don't have to change any thing
     else :
         result = quantity
+    # we change the last result into 2nd decimal place in case it has many decimal place
     result = "%.2f" %result
     return result
 
