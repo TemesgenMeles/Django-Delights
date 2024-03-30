@@ -1,6 +1,77 @@
 from django.shortcuts import render
 from .models import Ingradient, MenuItem, RecipeRequirement, Purchase, PurcahseHistory, Profit
 
+# for calculating unit values
+def to_gram(state, unit, quantity):
+    result = 0
+    if state == "solid":
+        if unit == "teaspoon":
+            result = quantity * 5
+        elif unit == "tablespoon":
+            result = quantity * 15
+        elif unit == "pound":
+            result = quantity * 433
+        elif unit == "kilogram":
+            result = quantity * 1000
+        elif unit == "ounce":
+            result = quantity * 28.3
+        else :
+            result = quantity
+    elif state == "liquid":
+        if unit == "teaspoon":
+            result = quantity * 5
+        elif unit == "tablespoon":
+            result = quantity * 15
+        elif unit == "gallon":
+            result = quantity * 3785.41
+        elif unit == "glass":
+            result = quantity * 240
+        elif unit == "ounce":
+            result = quantity * 28.4
+        elif unit == "litre":
+            result = quantity * 1000
+        else :
+            result = quantity
+    else :
+        result = quantity
+    result = "%.2f" %result
+    return result
+
+def from_gram(state, unit, quantity):
+    result = 0
+    if state == "solid":
+        if unit == "teaspoon":
+            result = quantity / 5
+        elif unit == "tablespoon":
+            result = quantity / 15
+        elif unit == "pound":
+            result = quantity / 433
+        elif unit == "kilogram":
+            result = quantity / 1000
+        elif unit == "ounce":
+            result = quantity / 28.3
+        else :
+            result = quantity
+    elif state == "liquid":
+        if unit == "teaspoon":
+            result = quantity / 5
+        elif unit == "tablespoon":
+            result = quantity / 15
+        elif unit == "gallon":
+            result = quantity / 3785.41
+        elif unit == "glass":
+            result = quantity / 240
+        elif unit == "ounce":
+            result = quantity / 28.4
+        elif unit == "litre":
+            result = quantity / 1000
+        else :
+            result = quantity
+    else :
+        result = quantity
+    result = "%.2f" %result
+    return result
+
 # Create your views here.
 def Index(request):
     return render(request, "inventory/index.html")
@@ -227,6 +298,30 @@ def buy_function(request, itemID):
         pri = menuItem.Price * quant
         
         Purchase(Menu_item = menuItem, Quantity = quant, Total_price = pri).save()
+        
+        Recipe_requirements = RecipeRequirement.objects.filter(Menu_item = menuItem)
+        
+        for recipe_requirement in Recipe_requirements:
+            whole_ingradient = recipe_requirement.Ingradint
+            
+            ingradient_state = whole_ingradient.State
+            ingradient_unit = whole_ingradient.Unit
+            ingradient_quantity = whole_ingradient.Quantity
+            
+            required_unit = recipe_requirement.Unit
+            required_quantity = recipe_requirement.Quantity
+            
+            big = to_gram(ingradient_state, ingradient_unit, ingradient_quantity)
+            
+            small = to_gram(ingradient_state, required_unit, required_quantity)
+            small = float(small) * float(quant)
+            
+            left_Ingradient = float(big) - float(small)
+            
+            finall_quantity = from_gram(ingradient_state, ingradient_unit, left_Ingradient)
+            
+            whole_ingradient.Quantity = finall_quantity
+            whole_ingradient.save()
         
     return ShowMenu(request)
         
