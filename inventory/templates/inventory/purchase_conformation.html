@@ -17,7 +17,7 @@
                 <img src="{% static 'inventory/images/logo vertical.png' %}" alt="logo">
             </div>
             <div class="my_form">
-                <form action="{% url 'buy' %}" method="post">
+                <form action="{% url 'buy' purchase_item.id %}" method="post">
                     {% csrf_token %} 
                     <div class="headers">
                         <input type="text" name="MIid" value="{{purchase_item.id}}" disabled hidden>
