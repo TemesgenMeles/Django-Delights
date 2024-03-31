@@ -1,3 +1,7 @@
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--darkish_color) var(--primary_color);
+}
 
 @font-face {
     font-family: "Acorn bold";
@@ -6,6 +10,7 @@
 
 :root {
     --primary_color: rgb(255, 64, 24);
+    --darkish_color: #5f0f08;
     --secondary_color: whitesmoke;
 }
 
