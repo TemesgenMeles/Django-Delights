@@ -335,6 +335,14 @@ def buy_function(request, itemID):
         
     return ShowMenu(request)
         
+def Edit_Menu_Page(request, itemID):
+    menu_item = MenuItem.objects.get(id = itemID)
+
+    context = {
+        "menu_item" : menu_item,
+    }
     
+    return render(request, "inventory/edit_menu.html", context)
+
 def Logout(request):
     pass

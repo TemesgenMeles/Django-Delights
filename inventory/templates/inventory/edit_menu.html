@@ -1,0 +1,61 @@
+{% load static %}
+{% load my_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menus</title>
+    <link rel="stylesheet" href="{% static 'inventory/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'inventory/css/conformation.css' %}">
+</head>
+<body>
+    <div class="main">
+        <button onclick="backtoMenu()" class="close"><i class="fa fa-window-close-o" aria-hidden="true"></i></button>
+        <div class="my_forms">
+            <div class="logo">
+                <img src="{% static 'inventory/images/logo vertical.png' %}" alt="logo">
+            </div>
+            <div class="my_form">
+                <form action="{% url 'edit_menu' menu_item.id %}" method="post">
+                    {% csrf_token %} 
+                    <div class="form">
+                        <div class="inputs">
+                            <label for="MenuItem">Menu :&nbsp;</label>
+                            <input type="text" name="menu_name" value="{{ menu_item.Title }}">
+                        </div>
+                        <div class="inputs">
+                            <label for="MenuItem">Price :&nbsp;</label>
+                            <input type="number" name="menu_name" step="0.01" value="{{ menu_item.Price }}">
+                        </div>
+                        <div class="inputs">
+                            <label for="MenuItem">Reating :&nbsp;</label>
+                            <input type="number" name="menu_name" value="{{ menu_item.Reating }}" class="reating" min="1" max="5">
+                        </div>
+                        <div class="buttons">
+                            <input type="submit" value="Edit" class="btn buy_btn">
+                            <a href="{% url 'menu_item' %}" class="btn">Cancel</a>
+                        </div>    
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function priceValue(){
+            document.getElementById("price").value = parseFloat('{{ purcahase_item.Price }}');
+        }
+
+        function backtoMenu(){
+            location.replace("{% url 'menu_item' %}")
+        }
+
+        function UpdatePrice(num){
+            price = num * parseFloat('{{ purchase_item.Price }}')
+            document.getElementById("price").value = price;
+        }
+    </script>
+</body>
+</html>

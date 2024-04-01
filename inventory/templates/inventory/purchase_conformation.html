@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="main">
-        <button onclick="backtoMenu()" class="close"><i class="fa fa-times" aria-hidden="true"></i></button>
+        <button onclick="backtoMenu()" class="close"><i class="fa fa-window-close-o" aria-hidden="true"></i></button>
         <div class="my_forms">
             <div class="logo">
                 <img src="{% static 'inventory/images/logo vertical.png' %}" alt="logo">
@@ -59,6 +59,7 @@
 
         function UpdatePrice(num){
             price = num * parseFloat('{{ purchase_item.Price }}')
+            price = price.toFixed(2)
             document.getElementById("price").value = price;
         }
     </script>
