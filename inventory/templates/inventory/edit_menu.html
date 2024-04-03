@@ -26,11 +26,11 @@
                         </div>
                         <div class="inputs">
                             <label for="MenuItem">Price :&nbsp;</label>
-                            <input type="number" name="menu_name" step="0.01" value="{{ menu_item.Price }}">
+                            <input type="number" name="price" step="0.01" value="{{ menu_item.Price }}">
                         </div>
                         <div class="inputs">
                             <label for="MenuItem">Reating :&nbsp;</label>
-                            <input type="number" name="menu_name" value="{{ menu_item.Reating }}" class="reating" min="1" max="5">
+                            <input type="number" name="reating" value="{{ menu_item.Reating }}" class="reating" min="1" max="5">
                         </div>
                         <div class="buttons">
                             <input type="submit" value="Edit" class="btn buy_btn">
@@ -44,17 +44,8 @@
     </div>
 
     <script>
-        function priceValue(){
-            document.getElementById("price").value = parseFloat('{{ purcahase_item.Price }}');
-        }
-
         function backtoMenu(){
             location.replace("{% url 'menu_item' %}")
-        }
-
-        function UpdatePrice(num){
-            price = num * parseFloat('{{ purchase_item.Price }}')
-            document.getElementById("price").value = price;
         }
     </script>
 </body>

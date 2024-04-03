@@ -15,6 +15,7 @@ urlpatterns = [
     path("Menu/Purchase/<itemID>", views.Buy, name="buy_conformation"),
     path("Menu/buy/<itemID>", views.buy_function, name="buy"),
     path("Menu/Edit/<itemID>", views.Edit_Menu_Page, name="edit_menu_page"),
-    path("Menu/Edit/Submit/<itemID>", views.Edit_Menu_Page, name="edit_menu"),
+    path("Menu/Edit/Submit/<itemID>", views.Edit_Menu, name="edit_menu"),
+    path("Recipes/Edit/<itemID>", views.Recipe_Edit_Page, name="recipe_edit_page"),
     path("Logout/", views.Logout, name="logout"),
 ]

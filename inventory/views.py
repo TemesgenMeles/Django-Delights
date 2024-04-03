@@ -115,8 +115,6 @@ def ShowRecipe(request):
     
     return render(request, "inventory/recipe.html", context)
 
-
-
 def Purchases(request):
     purchases_item = Purchase.objects.all()
     context = {
@@ -343,6 +341,49 @@ def Edit_Menu_Page(request, itemID):
     }
     
     return render(request, "inventory/edit_menu.html", context)
+
+def Edit_Menu(request, itemID):
+    if request.method == "POST":
+        MIID = itemID
+        title = request.POST['menu_name']
+        price = request.POST['price']
+        reating = request.POST['reating']
+
+        menu_item = MenuItem.objects.get(id=MIID)
+        menu_item.Title = title
+        menu_item.Price = price
+        menu_item.Reating = reating
+        
+        menu_item.save()
+        
+        return ShowMenu(request)
+
+def Recipe_Edit_Page(request, itemID):
+    recipe_item = RecipeRequirement.objects.filter(Menu_item = itemID)
+    menu_item = MenuItem.objects.get(id = itemID)
+    title = menu_item.Title
+    
+    units = [
+            "teaspoon",
+            "tablespoon",
+            "pound",
+            "gram",
+            "kilogram",
+            "ounce",
+            "mililitre",
+            "litre",
+            "glass",
+            "gallon",
+            "count"
+        ]
+    
+    context = {
+        "recipe_item" : recipe_item,
+        "title" : title,
+        "units" : units,
+    }
+    
+    return render(request, "inventory/recipe_edit.html", context)
 
 def Logout(request):
     pass

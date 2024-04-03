@@ -51,7 +51,7 @@ Django Delight | Menus Recipe
                                 <i class="fa fa-check-circle mycolor"></i>&nbsp;&nbsp;{{ rec.Quantity }} {{ rec.Unit }} of {{ rec.Ingradint.Name }}
                                 {% endif %}
                             </td>
-                            <td class="btn_box" rowspan="{{item|GetRecipe | length}}"><a href="#" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
+                            <td class="btn_box" rowspan="{{item|GetRecipe | length}}"><a href="{% url 'recipe_edit_page' item.id %}" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
 
                             {% else %}
                             <tr>

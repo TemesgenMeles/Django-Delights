@@ -1,0 +1,193 @@
+@font-face {
+    font-family: "Acorn bold";
+    src: url('../fonts/acorn bold.ttf');
+}
+
+:root {
+    --primary_color: rgb(255, 64, 24);
+    --secondary_color: whitesmoke;
+    --darkish_color: rgb(95, 15, 8);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--darkish_color) var(--primary_color);
+}
+
+body {
+    font-family: "Acorn bold";
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.404), rgba(0, 0, 0, 0.466)), url(../images/background3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+
+}
+
+.main {
+    padding: 1rem 3rem;
+    width: 90vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 15%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.main .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.8rem;
+    padding: 3px 6px;
+    color: var(--secondary_color);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.main .close:hover {
+    color: var(--primary_color);
+}
+
+.main .my_forms {
+    padding-top: 1rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.main .my_forms .logo {
+    width: 20%;
+    display: flex;
+    height: fit-content;
+    
+}
+
+.main .my_forms .logo img {
+    width: 100%;
+    height: auto;
+}
+
+.main .my_forms .title {
+    color: var(--secondary_color);
+    font-size: 2.5rem;
+    letter-spacing: 1.3px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.main .my_forms .title span {
+    color: var(--primary_color);
+    text-shadow: 1px 1px 2px var(--secondary_color);
+    text-transform: capitalize;
+}
+
+.main .my_forms .header {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.main .my_forms .header .heads {
+    display: flex;
+    width: 80%;
+    padding: 0 2rem;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: center;
+}
+
+.main .my_forms .header .heads .big {
+    width: calc(35% - 15px);
+    color: var(--primary_color);
+    text-shadow: 1px 1px 2px var(--secondary_color);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+.main .my_forms .header .heads .small {
+    width: calc(15% - 15px);
+    color: var(--primary_color);
+    text-shadow: 1px 1px 2px var(--secondary_color);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+.main .my_forms hr {
+    width: 100%;
+    color: var(--primary_color);
+    padding: 0;
+    margin: 0;
+}
+
+.main .my_forms .forms {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    height: 40%;
+    overflow-y: scroll;
+}
+
+.main .my_forms .forms .form {
+    width: 80%;
+}
+
+.main .my_forms .forms .form:nth-child(even) {
+    background-color: rgba(255, 72, 0, 0.219);
+}
+
+.main .my_forms .forms .form .input {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.main .my_forms .forms .form .input .big {
+    width: calc(35% - 15px);
+}
+
+.main .my_forms .forms .form .input .small {
+    width: calc(15% - 15px);
+}
+
+.main .my_forms .forms .form .input .Reci_name, .main .my_forms .forms .form .input .Reci_quantity, .main .my_forms .forms .form .input .Reci_unit {
+    border-bottom: 2px solid var(--primary_color);
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    background-color: transparent;
+    color: var(--secondary_color);
+    font-family: inherit;
+    font-size: 1.2rem;
+    padding-left: 20px;
+    text-transform: capitalize;
+    letter-spacing: 1.3px;
+    border-radius: 10px;
+    padding-block: 2px;
+}
+
+.main .my_forms .forms .form .input .Reci_quantity {
+    border-top: 2px solid var(--primary_color);
+}
+
+.main .my_forms .forms .form .input .Reci_unit {
+    color: var(--primary_color);
+    border-top: 2px solid var(--primary_color);
+}
