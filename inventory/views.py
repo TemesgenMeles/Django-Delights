@@ -362,6 +362,7 @@ def Recipe_Edit_Page(request, itemID):
     recipe_item = RecipeRequirement.objects.filter(Menu_item = itemID)
     menu_item = MenuItem.objects.get(id = itemID)
     title = menu_item.Title
+    menuID = menu_item.id
     
     left_ingradient = []
     ingradients = Ingradient.objects.all()
@@ -392,6 +393,7 @@ def Recipe_Edit_Page(request, itemID):
     context = {
         "recipe_item" : recipe_item,
         "title" : title,
+        "menuID" : menuID,
         "units" : units,
         "ingradients": left_ingradient,
     }
@@ -412,5 +414,24 @@ def Recipe_Edit(request, itemID):
         
         return ShowRecipe(request)
 
+def Recipe_Delete(request, itemID, menuID):
+    recipe_requirement = RecipeRequirement.objects.get(id = itemID)
+    recipe_requirement.delete()
+    
+    return Recipe_Edit_Page(request, menuID)
+
+def Add_Recipe_from_Edit(request, menuID):
+    if request.method == "POST":
+        menuID = menuID
+        ingradientID = request.POST['name']
+        menu_item = MenuItem.objects.get(id = menuID)
+        ingradient = Ingradient.objects.get(id = ingradientID)
+        quantity = request.POST['quantity']
+        unit = request.POST['unit']
+
+        RecipeRequirement(Menu_item = menu_item, Ingradint = ingradient, Quantity = quantity, Unit = unit).save()
+        
+        return ShowRecipe(request)
+    
 def Logout(request):
     pass

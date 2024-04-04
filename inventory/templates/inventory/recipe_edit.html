@@ -65,7 +65,7 @@
 
                             <div class="button big">
                                 <input type="submit" value="Edit" class="btn edi">
-                                <a href="" class="btn del"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete</a>
+                                <a href="{% url 'recipe_delete' item.id menuID %}" class="btn del"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete</a>
                             </div>
                         </div>
                     </form>
@@ -78,7 +78,8 @@
             </div>
 
             <div class="add_recipe">
-                <form action="#">
+                <form action="{% url 'add_recipe_from_Edit' menuID %}" method="post">
+                    {% csrf_token %}
                     <div class="inputs big">
                         <label for="Name">Name of Ingradient <span>*</span></label>
                         <select name="name">
