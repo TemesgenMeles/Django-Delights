@@ -17,5 +17,6 @@ urlpatterns = [
     path("Menu/Edit/<itemID>", views.Edit_Menu_Page, name="edit_menu_page"),
     path("Menu/Edit/Submit/<itemID>", views.Edit_Menu, name="edit_menu"),
     path("Recipes/Edit/<itemID>", views.Recipe_Edit_Page, name="recipe_edit_page"),
+    path("Recipes/Edit/Submit/<itemID>", views.Recipe_Edit, name="recipe_edit"),
     path("Logout/", views.Logout, name="logout"),
 ]

@@ -363,6 +363,18 @@ def Recipe_Edit_Page(request, itemID):
     menu_item = MenuItem.objects.get(id = itemID)
     title = menu_item.Title
     
+    left_ingradient = []
+    ingradients = Ingradient.objects.all()
+    for ingradient in ingradients:
+        count = 0
+        for recipe in recipe_item:
+            if ingradient == recipe.Ingradint:
+                count = count + 1
+            else:
+                continue
+        if count == 0:
+            left_ingradient.append(ingradient)
+
     units = [
             "teaspoon",
             "tablespoon",
@@ -381,9 +393,24 @@ def Recipe_Edit_Page(request, itemID):
         "recipe_item" : recipe_item,
         "title" : title,
         "units" : units,
+        "ingradients": left_ingradient,
     }
     
     return render(request, "inventory/recipe_edit.html", context)
+
+def Recipe_Edit(request, itemID):
+    if request.method == "POST":
+        recipe_requirement = RecipeRequirement.objects.get(id = itemID)
+        
+        quan = request.POST['recipe_quantity']
+        unit = request.POST['recipe_unit']
+        
+        recipe_requirement.Quantity = quan
+        recipe_requirement.Unit = unit
+        
+        recipe_requirement.save()
+        
+        return ShowRecipe(request)
 
 def Logout(request):
     pass

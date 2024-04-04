@@ -7,6 +7,8 @@
     --primary_color: rgb(255, 64, 24);
     --secondary_color: whitesmoke;
     --darkish_color: rgb(95, 15, 8);
+    --danger_color: rgb(220, 53, 69);
+    --blue_color: rgb(13, 110, 253);
 }
 
 * {
@@ -29,15 +31,15 @@ body {
 }
 
 .main {
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     width: 90vw;
-    height: 80vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
-    top: 15%;
+    top: 7%;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -190,4 +192,154 @@ body {
 .main .my_forms .forms .form .input .Reci_unit {
     color: var(--primary_color);
     border-top: 2px solid var(--primary_color);
+}
+
+.main .my_forms .forms .form .input .button {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.main .my_forms .forms .form .input .button .btn {
+    text-decoration: none;
+    padding: 5px 25px;
+    border: 2px solid var(--primary_color);
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 1.2rem;
+    color: var(--primary_color);
+    border-radius: 10px;
+}
+
+.main .my_forms .forms .form .input .button .del {
+    border-color: var(--danger_color);
+    color: var(--danger_color);
+}
+
+.main .my_forms .forms .form .input .button .del:hover {
+    background-color: var(--danger_color);
+    color: var(--secondary_color);
+    box-shadow: 5px 5px 5px var(--secondary_color);
+    transform: translateY(-5px);
+    transition: all 0.5s;
+}
+
+.main .my_forms .forms .form .input .button .edi:hover {
+    background-color: var(--primary_color);
+    color: var(--secondary_color);
+    box-shadow: 5px 5px 5px var(--secondary_color);
+    transform: translateY(-5px);
+    transition: all 0.5s;
+}
+
+.add_button button {
+    text-decoration: none;
+    color: var(--blue_color);
+    padding: 5px 30px;
+    clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
+    border: 3px solid var(--blue_color);
+    font-size: 1.2rem;
+    background-color: transparent;
+}
+
+.add_button button:hover {
+    background-color: var(--blue_color);
+    color: var(--secondary_color);
+    transform: translateY(5px);
+    transition: all 0.5s;
+}
+
+.add_recipe {
+    display: none;
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: 2rem;
+}
+
+.add_recipe form {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.add_recipe form .big {
+    width: calc(35% - 5px);
+}
+
+.add_recipe form .small {
+    width: calc(15% - 5px);
+}
+
+.add_recipe form .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add_recipe form .inputs label {
+    color: var(--secondary_color);
+    font-size: 1.2rem;
+}
+
+.add_recipe form .inputs label span {
+    color: var(--danger_color);
+}
+
+.add_recipe form .inputs input, .add_recipe form .inputs select {
+    border: none;
+    border-top: 3px solid var(--primary_color);
+    border-bottom: 3px solid var(--primary_color);
+    color: var(--secondary_color);
+    font-family: inherit;
+    font-size: 1.2rem;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 3px 10px;
+}
+
+.add_recipe form .inputs input {
+    border-left: 1px solid var(--primary_color);
+}
+
+.add_recipe form .inputs select {
+    color: var(--primary_color);
+}
+
+.add_recipe form .inputs .other_btn {
+    text-decoration: none;
+    color: var(--primary_color);
+    padding: 3px 30px;
+    clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
+    border: 3px solid var(--primary_color);
+    font-size: 1.2rem;
+    width: fit-content;
+}
+
+.add_recipe form .inputs .other_btn:hover {
+    color: var(--secondary_color);
+    background-color: var(--primary_color);
+}
+
+.add_recipe form .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_recipe form .button .btn {
+    color: var(--blue_color);
+    padding: 3px 40px;
+    clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
+    border: 3px solid var(--blue_color);
+    font-size: 1.2rem;
+    width: fit-content;
+    background-color: transparent;
+    font-family: inherit;
+    letter-spacing: 1.2px;
+}
+
+.add_recipe form .button .btn:hover {
+    color: var(--secondary_color);
+    background-color: var(--blue_color);
+    transform: translateY(-5px);
+    transition: all 0.5s;
 }

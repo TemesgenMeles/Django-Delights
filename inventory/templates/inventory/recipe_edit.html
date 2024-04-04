@@ -33,7 +33,8 @@
                 {% for item in recipe_item %}
 
                 <div class="form">
-                    <form action="">
+                    <form action="{% url 'recipe_edit' item.id %}" method="post">
+                        {% csrf_token %}
                         <div class="input">
                             <input type="text" name="recipe_item" value="{{item.Ingradint.Name}}" class="big Reci_name" disabled>
                             
@@ -44,20 +45,27 @@
                             {% endif %}
                             
                             <select name="recipe_unit" class="small Reci_unit">
-                                {% for unit in units %}
                                 
-                                {% if unit == item.Unit %}
-                                    <option value="{{unit}}" selected>{{unit}}</option>
+                                {% if item.Unit == "count" %}
+                                    <option value="count">{{item.Unit}}</option>
                                 {% else %}
-                                    <option value="{{unit}}">{{unit}}</option>
+                                    {% for unit in units %}
+                                    
+                                    {% if unit == item.Unit %}
+                                        <option value="{{unit}}" selected>{{unit}}</option>
+                                    {% else %}
+                                        <option value="{{unit}}">{{unit}}</option>
+                                    {% endif %}
+                                        
+                                    {% endfor %}
                                 {% endif %}
                                     
-                                {% endfor %}
+                                
                             </select>
 
                             <div class="button big">
-                                <input type="submit" value="Edit" class="btn">
-                                <a href="" class="btn">Delete</a>
+                                <input type="submit" value="Edit" class="btn edi">
+                                <a href="" class="btn del"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete</a>
                             </div>
                         </div>
                     </form>
@@ -66,13 +74,53 @@
                 {% endfor %}
             </div>
             <div class="add_button">
-                <a href="">Add Recipe</a>
+                <button onclick="popup()" id="btn">Add Recipe</button>
+            </div>
+
+            <div class="add_recipe">
+                <form action="#">
+                    <div class="inputs big">
+                        <label for="Name">Name of Ingradient <span>*</span></label>
+                        <select name="name">
+                            
+                            {% for ingradient in ingradients %}
+                                <option value="{{ingradient.id}}">{{ ingradient.Name }}</option>
+                            {% endfor %}
+                                
+                        </select>
+                        <a href="#" class="other_btn">Other</a>
+                    </div>
+                    <div class="inputs small">
+                        <label for="quntity">Quantity <span>*</span></label>
+                        <input type="number" step="0.01" name="quantity">
+                    </div>
+                    <div class="inputs small">
+                        <label for="unit">Unit <span>*</span></label>
+                        <select name="unit">
+                            {% for unit in units %}
+                            {% if unit == "gram" %}
+                                <option value="{{unit}}" selected>{{unit}}</option>
+                            {% else %}
+                                <option value="{{unit}}">{{unit}}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="button big">
+                        <input type="submit" value="Add" class="btn">
+                    </div>
+                </form>
             </div>
     </div>
 
     <script>
         function backtoMenu(){
-            location.replace("{% url 'recipes' %}")
+            location.replace("{% url 'recipes' %}");
+        }
+
+        function popup(){
+            document.querySelector(".add_button").style.display = "none";
+            document.querySelector(".add_recipe").style.display = "flex";
         }
     </script>
 </body>
