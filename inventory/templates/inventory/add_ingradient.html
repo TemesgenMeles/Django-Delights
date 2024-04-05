@@ -1,0 +1,113 @@
+{% load static %}
+{% load my_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menus</title>
+    <link rel="stylesheet" href="{% static 'inventory/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'inventory/css/conformation.css' %}">
+    <link rel="stylesheet" href="{% static 'inventory/css/add_ingradient.css' %}">
+</head>
+<body>
+    <div class="main">
+        <button onclick="backtoMenu()" class="close"><i class="fa fa-window-close-o" aria-hidden="true"></i></button>
+        <div class="my_forms">
+            <div class="logo">
+                <img src="{% static 'inventory/images/logo vertical.png' %}" alt="logo">
+            </div>
+            <div class="my_form">
+                <form action="{% url 'stocks' %}" method="post" id="form" onsubmit="return validate()">
+                    {% csrf_token %} 
+                    <div class="form">
+                        <div class="inputs">
+                            <label for="name">Name :&nbsp;</label>
+                            <input type="text" name="name" id="name" required>
+                        </div>
+                        <div class="inputs">
+                            <label for="state">State :&nbsp;</label>
+                            <select name="state" id="state">
+                                
+                                {% for state in states %}
+                                    <option value="{{state}}">{{state}}</option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                        <div class="inputs">
+                            <label for="quantity">Quantity :&nbsp;</label>
+                            <input type="number" name="quantity" id="quantity" step="0.01">
+                        </div>
+
+                        <div class="inputs">
+                            <label for="unit">Unit :&nbsp;</label>
+                            <select name="unit" id="unit">
+                                
+                                {% for unit in units %}
+                                    <option value="{{unit}}">{{unit}}</option>
+                                {% endfor %}
+
+                            </select>
+                            <p class="error"></p>
+                        </div>
+
+                        <div class="inputs">
+                            <label for="MenuItem">Unit Price :&nbsp;</label>
+                            <input type="number" name="quantity" id="quantity" step="0.01" required>
+                        </div>
+
+                        <div class="buttons">
+                            <input type="submit" value="Add" class="btn add_btn">
+                            <a href="{% url 'stocks' %}" class="btn">Cancel</a>
+                        </div>    
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function backtoMenu(){
+            location.replace("{% url 'stocks' %}");
+        }
+        
+        
+        
+        function validate(){
+            const form = document.getElementById("form");
+            const quantity = document.getElementById("quantity");
+            const unit = document.getElementById("unit");
+            const state = document.getElementById("state");
+            const name = document.getElementById("name");
+            if (state.value == "liquid"){
+                if (unit.value == "pound" || unit.value == "gram" || unit.value == "kilogram" || unit.value == "count"){
+                    alert("Solid Things can't be Measured in " + unit.value);
+                    return false
+                }
+            }
+            else if (state.value == "solid"){
+                if (unit.value == "mililitre" || unit.value == "litre" || unit.value == "glass" || unit.value == "gallon" || unit.value == "count"){
+                    alert("Solid Things can't be Measured in " + unit.value)
+                    
+                    return false;
+                    name.value = name.value;
+                }
+            }
+
+            else if (state.value == "count"){
+                if (unit.value != "count"){
+                    alert("Countable Items Can't be Measured in " + unit.value);
+                    return false;
+                }
+                else if (quantity.value % 1 !== 0){
+                    alert("Countable Items Can't Have a Float Value " + quantity.value);
+                    return false;
+                }
+            }
+               
+        }
+    </script>
+</body>
+</html>

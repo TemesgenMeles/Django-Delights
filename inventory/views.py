@@ -433,5 +433,32 @@ def Add_Recipe_from_Edit(request, menuID):
         
         return ShowRecipe(request)
     
+def Add_Ingradient_Page(request):
+    state = [
+        "liquid",
+        "solid",
+        "count"
+    ]
+    
+    units = [
+        "teaspoon",
+        "tablespoon",
+        "pound",
+        "gram",
+        "kilogram",
+        "ounce",
+        "mililitre",
+        "litre",
+        "glass",
+        "gallon",
+        "count"
+    ]
+    
+    context = {
+        "states" : state,
+        "units" : units,
+    }
+    return render(request, "inventory/add_ingradient.html", context)
+
 def Logout(request):
     pass
