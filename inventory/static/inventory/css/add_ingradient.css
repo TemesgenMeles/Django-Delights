@@ -1,0 +1,38 @@
+:root {
+    --primary_color: rgb(255, 64, 24);
+    --secondary_color: whitesmoke;
+    --darkish_color: rgb(95, 15, 8);
+    --danger_color: rgb(220, 53, 69);
+    --blue_color: rgb(13, 110, 253);
+}
+
+.main {
+    height: 700px;
+}
+
+select {
+    font-family: inherit;
+    color: var(--primary_color);
+    width: 7rem;
+    border: 2px solid var(--primary_color);
+    font-size: 1.1rem;
+    padding-left: 5px;
+    background-color: transparent;
+    border-radius: 0 10px 10px 0;
+    text-transform: capitalize;
+    padding-block: 5px;
+}
+
+.main .close:hover {
+    color: var(--danger_color);
+}
+
+.main .my_forms .my_form form .form .buttons .cancle_btn {
+    color: var(--danger_color);
+    border-color: var(--danger_color);
+}
+
+.main .my_forms .my_form form .form .buttons .cancle_btn:hover {
+    background-color: var(--danger_color);
+    color: var(--secondary_color);
+}

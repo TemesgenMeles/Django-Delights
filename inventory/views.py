@@ -87,7 +87,7 @@ def Index(request):
     return render(request, "inventory/index.html")
 
 def ShowIngradients(request):
-    Ingradients = Ingradient.objects.all()
+    Ingradients = Ingradient.objects.order_by("-id")
     context = {
         "ingradients" : Ingradients
     }
@@ -459,6 +459,18 @@ def Add_Ingradient_Page(request):
         "units" : units,
     }
     return render(request, "inventory/add_ingradient.html", context)
+
+def Add_Ingradient(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        state = request.POST['state']
+        quantity = request.POST['quantity']
+        unit = request.POST['unit']
+        unit_price = request.POST['unit_price']
+
+        Ingradient(Name = name, State = state, Quantity = quantity, Unit = unit, Unit_price = unit_price).save()
+        
+        return ShowIngradients(request)
 
 def Logout(request):
     pass

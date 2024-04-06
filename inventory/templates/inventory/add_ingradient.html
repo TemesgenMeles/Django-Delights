@@ -18,7 +18,7 @@
                 <img src="{% static 'inventory/images/logo vertical.png' %}" alt="logo">
             </div>
             <div class="my_form">
-                <form action="{% url 'stocks' %}" method="post" id="form" onsubmit="return validate()">
+                <form action="{% url 'add_ingradient' %}" method="post" id="form" onsubmit="return validate()">
                     {% csrf_token %} 
                     <div class="form">
                         <div class="inputs">
@@ -54,12 +54,12 @@
 
                         <div class="inputs">
                             <label for="MenuItem">Unit Price :&nbsp;</label>
-                            <input type="number" name="quantity" id="quantity" step="0.01" required>
+                            <input type="number" name="unit_price" id="quantity" step="0.01" required>
                         </div>
 
                         <div class="buttons">
-                            <input type="submit" value="Add" class="btn add_btn">
-                            <a href="{% url 'stocks' %}" class="btn">Cancel</a>
+                            <input type="submit" value="Add" class="btn">
+                            <a href="{% url 'stocks' %}" class="btn cancle_btn">Cancel</a>
                         </div>    
                     </div>
                     
@@ -106,7 +106,8 @@
                     return false;
                 }
             }
-               
+            
+            true;
         }
     </script>
 </body>

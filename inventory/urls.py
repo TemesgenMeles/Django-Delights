@@ -21,5 +21,6 @@ urlpatterns = [
     path("Recipes/Edit/Delete/<itemID>/<menuID>", views.Recipe_Delete, name="recipe_delete"),
     path("Recipes/Edit/Add/<menuID>", views.Add_Recipe_from_Edit, name="add_recipe_from_Edit"),
     path("Stocks/Add_Ingradient", views.Add_Ingradient_Page, name="add_ingradient_page"),
+    path("Stocks/Add_Ingradient/Submit", views.Add_Ingradient, name="add_ingradient"),
     path("Logout/", views.Logout, name="logout"),
 ]
