@@ -42,8 +42,8 @@ Django Delight | Stokes
                     <td>{{ item.State }}</td>
                     <td>{{ item.Quantity}} {{ item.Unit }}</td>
                     <td>$&nbsp;{{ item.Quantity|multi:item.Unit_price }}</td>
-                    <td><a href="#" class="btn btn_edit"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
-                    <td><a href="#" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Add</a></td>
+                    <td><a href="{% url 'edit_ingradient_page' item.id %}" class="btn btn_edit"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
+                    <td><a href="{% url 'add_quantity_to_ingradient_page' item.id %}" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Add</a></td>
                 </tr>
             {% endfor %}
                 

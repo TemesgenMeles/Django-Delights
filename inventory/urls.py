@@ -22,5 +22,10 @@ urlpatterns = [
     path("Recipes/Edit/Add/<menuID>", views.Add_Recipe_from_Edit, name="add_recipe_from_Edit"),
     path("Stocks/Add_Ingradient", views.Add_Ingradient_Page, name="add_ingradient_page"),
     path("Stocks/Add_Ingradient/Submit", views.Add_Ingradient, name="add_ingradient"),
+    path("Stocks/Edit_Ingradient/<IngradientID>", views.Edit_Ingradient_Page, name="edit_ingradient_page"),
+    path("Stocks/Edit_Ingradient/Submit/<IngradientID>", views.Edit_Ingradient, name="edit_ingradient"),
+    path("Stocks/Add_Quantity/<IngradientID>", views.Add_Quantity_Page, name="add_quantity_to_ingradient_page"),
+    path("Stocks/Add_Quantity/Submit/<IngradientID>", views.Add_Quantity, name="add_quantity_to_ingradient"),
+    path("Shop/Profit_Submit", views.Confirm_profit, name="save_profit"),
     path("Logout/", views.Logout, name="logout"),
 ]

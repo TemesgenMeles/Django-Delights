@@ -1,0 +1,178 @@
+@font-face {
+    font-family: "Acorn bold";
+    src: url('../fonts/acorn bold.ttf');
+}
+
+:root {
+    --primary_color: rgb(255, 64, 24);
+    --secondary_color: whitesmoke;
+    --darkish_color: rgb(95, 15, 8);
+    --danger_color: rgb(220, 53, 69);
+    --blue_color: rgb(13, 110, 253);
+    --shaded_color: rgba(255, 62, 24, 0.875);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Acorn bold";
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.404), rgba(0, 0, 0, 0.466)), url(../images/background3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+
+}
+
+.main {
+    width: 778px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 15%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.main .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.8rem;
+    padding: 3px 6px;
+    color: var(--secondary_color);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.main .close:hover {
+    color: var(--danger_color);
+}
+
+.main .my_forms {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+
+.main .my_forms .logo {
+    width: 30%;
+    display: flex;
+    position: relative;
+    top: 2rem;
+}
+
+.main .my_forms .logo img {
+    width: 100%;
+    height: auto;
+   
+}
+
+.title {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0 0 0 30px;
+}
+
+.title h2 {
+    font-size: 2.2rem;
+    color: var(--secondary_color);
+    letter-spacing: 1.3px;
+    text-transform: capitalize;
+}
+
+.title h2 span {
+    color: var(--primary_color);
+    text-shadow: 2px 2px 2px var(--secondary_color);
+}
+.my_form{
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    padding-left: 40px;
+    gap: 1rem;
+}
+
+.inputs {
+    display: flex;
+    width: 100%;
+}
+
+.inputs label {
+    color: var(--secondary_color);
+    font-size: 1.3rem;
+    letter-spacing: 1.2px;
+}
+
+.inputs input, .inputs select {
+    background-color: transparent;
+    color: var(--primary_color);
+    border: 2px solid var(--primary_color);
+    padding-left: 20px;
+    width: 40%;
+    padding-block: 4px;
+    font-family: inherit;
+    font-size: 1.3rem;
+    border-radius: 10px 10px 0 0;
+}
+
+.inputs select {
+    width: 30%;
+    text-transform: capitalize;
+}
+
+.buttons {
+    display: flex;
+    width: 60%;
+    margin: auto;
+    margin-top: 10px;
+    justify-content: space-evenly;
+}
+
+.buttons .btn {
+    padding: 5px 25px;
+    border: 3px solid var(--primary_color);
+    background-color: transparent;
+    clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
+    color: var(--secondary_color);
+    font-size: 1.4rem;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-family: inherit;
+}
+
+.buttons .btn:hover {
+    color: var(--secondary_color);
+    background-color: var(--primary_color);
+    transform: translate(-5px, 5px);
+    transition: all 0.5s;
+}
+
+.buttons .add_btn {
+    padding-inline: 35px;
+}
+
+.buttons .cancle_btn {
+    color: var(--danger_color);
+    border-color: var(--danger_color);
+}
+
+.buttons .cancle_btn:hover {
+    background-color: var(--danger_color);
+}

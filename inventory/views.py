@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Ingradient, MenuItem, RecipeRequirement, Purchase, PurcahseHistory, Profit
+import datetime
 
 # for calculating unit values
 # changing the quantity into mililiter and gram based on their state
@@ -21,7 +22,7 @@ def to_gram(state, unit, quantity):
         else : # if it is not in the above it is a gram unit so we don't have to change any thing
             result = quantity
     # if is's state liquid change the quantity into mililiter
-    elif state == "liquid":\
+    elif state == "liquid":
         # change into mililiter based on thier units
         if unit == "teaspoon":
             result = quantity * 5
@@ -40,7 +41,7 @@ def to_gram(state, unit, quantity):
     else : # if it is not solid or liquid so it is count we don't have to change any thing
         result = quantity
     result = "%.2f" %result
-    return result
+    return float(result)
 
 # changing the quantity from mililiter and gram into their state
 def from_gram(state, unit, quantity):
@@ -80,7 +81,7 @@ def from_gram(state, unit, quantity):
         result = quantity
     # we change the last result into 2nd decimal place in case it has many decimal place
     result = "%.2f" %result
-    return result
+    return float(result)
 
 # Create your views here.
 def Index(request):
@@ -127,13 +128,21 @@ def Profit_revenue(request):
     # creating a variable for the cost and the revenue
     cost = 0
     revenue = 0
+    start = 0
+    end = 0
+    profit = 0
+    
     # selecting all the items in the purchase table
     purchases = Purchase.objects.all()
     
-    start = purchases[0].Timestamp
-    end = purchases[0].Timestamp
+    
+    counter = 1
     # loop every single purchase
     for purchase in purchases:
+        if counter == 1:
+            start = purchases[0].Timestamp
+            end = purchases[0].Timestamp
+            counter = counter + 1
         # creating a variable for a single purchase
         single_cost = 0
         # get the menu item and quantity from the perchase table and assign it to the variable
@@ -169,17 +178,24 @@ def Profit_revenue(request):
     
     return render(request, "inventory/purchase.html", context)
 
-def Confirm_profit(request, start, end, cost, revenue, profit):
-    purchases = Purchase.objects.all()
-    
-    for item in purchases:
-        PurcahseHistory(Menu_name = item.Menu_item.Title, Timestamp = item.Timestamp, Quantity = item.Quantity, Total_price = item.Total_price).save()
+def Confirm_profit(request):
+    if request.method == "POST":
+        start = request.POST.get('start')
+        end = request.POST.get('end')
+        cost = float(request.POST.get('cost'))
+        revenue = float(request.POST.get('revenue'))
+        profit = float(request.POST.get('profit'))
         
-        item.delete()
+        purchases = Purchase.objects.all()
+        Profit(Cost = cost, Revenue = revenue, Profit = profit, Timestamp_start = start, Timestamp_end = end).save()
+        for item in purchases:
+            PurcahseHistory(Menu_name = item.Menu_item.Title, Timestamp = item.Timestamp, Quantity = item.Quantity, Total_price = item.Total_price).save()
+            
+            item.delete()
+            
         
-    Profit(Cost = cost, Revenue = revenue, Profit = profit, Timestamp_start = start, Timestamp_end = end).save()
-    
-    Profit(request)
+        
+        return All_Profit(request)
 
 def All_Profit(request):
     profites = Profit.objects.order_by("-pk")  
@@ -196,7 +212,7 @@ def All_Profit(request):
     return render(request, "inventory/all_profit.html", context)
 
 def All_purchase(request):
-    purchases = PurcahseHistory.objects.order_by("Timestamp")
+    purchases = PurcahseHistory.objects.order_by("-Timestamp")
     
     context = {
         "purchases": purchases
@@ -304,6 +320,7 @@ def buy_function(request, itemID):
         quant = float(request.POST.get('quantity'))
         menuItem = MenuItem.objects.get(id=Mid)
         pri = menuItem.Price * quant
+        pri = "%.2f" %pri
         
         Purchase(Menu_item = menuItem, Quantity = quant, Total_price = pri).save()
         
@@ -471,6 +488,84 @@ def Add_Ingradient(request):
         Ingradient(Name = name, State = state, Quantity = quantity, Unit = unit, Unit_price = unit_price).save()
         
         return ShowIngradients(request)
+
+def Edit_Ingradient_Page(request, IngradientID):
+    ingradient = Ingradient.objects.get(id = IngradientID)
+    
+    context = {
+        "ingradient" : ingradient,
+    }
+
+    return render(request, "inventory/edit_ingradient.html", context)
+
+def Edit_Ingradient(request, IngradientID):
+    if request.method == "POST":
+        name = request.POST['ingradient_name']
+        ingradient = Ingradient.objects.get(id = IngradientID)
+
+        ingradient.Name = name
+        ingradient.save()
+
+        return ShowIngradients(request)
+
+def Add_Quantity_Page(request, IngradientID):
+    ingradient = Ingradient.objects.get(id = IngradientID)
+    liquid_unit = [
+        "tablespoon",
+        "teaspoon",
+        "mililitre",
+        "litre",
+        "glass",
+        "gallon",
+        "ounce"
+    ]
+    
+    solid_unit = [
+        "tablespoon",
+        "teaspoon",
+        "gram",
+        "kilogram",
+        "pound",
+        "ounce"
+    ]
+    
+    context = {
+        "ingradient" : ingradient,
+        "liquid_unit" : liquid_unit,
+        "solid_unit" : solid_unit,
+    }
+    
+    return render(request, "inventory/add_ingradient_quantity.html", context)
+
+def Add_Quantity(request, IngradientID):
+    if request.method == "POST":
+        quan = float(request.POST['quantity'])
+        unit = request.POST['unit']
+        u_price = float(request.POST['unit_price'])
+        
+        ingradient = Ingradient.objects.get(id = IngradientID)
+        state = ingradient.State
+        if ingradient.Unit == unit:
+            quantity = ingradient.Quantity + quan
+
+            unit_price = ((ingradient.Quantity * ingradient.Unit_price) + (quan * u_price)) / quantity
+        else:
+            quan_result = to_gram(state, unit, quan)
+            pri_result = to_gram(state, unit, u_price)
+            
+            quantity_result = from_gram(ingradient.State, ingradient.Unit, quan_result)
+            price_result = from_gram(ingradient.State, ingradient.Unit, pri_result)
+            
+            quantity = ingradient.Quantity + quantity_result
+            unit_price = ((ingradient.Quantity * ingradient.Unit_price) + (quantity_result * price_result)) / quantity
+        
+        ingradient.Quantity = quantity
+        ingradient.Unit_price = unit_price
+        ingradient.save()
+        
+        return ShowIngradients(request)
+
+
 
 def Logout(request):
     pass

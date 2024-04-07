@@ -54,6 +54,6 @@ class Profit(models.Model):
     Cost = models.FloatField(default = 0)
     Revenue = models.FloatField(default = 0)
     Profit = models.FloatField(default = 0)
-    Timestamp_start = models.DateTimeField()
-    Timestamp_end = models.DateTimeField()
+    Timestamp_start = models.CharField(max_length=255)
+    Timestamp_end = models.CharField(max_length=255)
     
