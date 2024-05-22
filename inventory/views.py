@@ -559,13 +559,14 @@ def Add_Quantity(request, IngradientID):
             quantity = ingradient.Quantity + quantity_result
             unit_price = ((ingradient.Quantity * ingradient.Unit_price) + (quantity_result * price_result)) / quantity
         
+        quantity = float("%.2f" %quantity)
+        unit_price = float("%.2f" %unit_price)
+        
         ingradient.Quantity = quantity
         ingradient.Unit_price = unit_price
         ingradient.save()
         
         return ShowIngradients(request)
-
-
 
 def Logout(request):
     pass

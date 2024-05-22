@@ -4,12 +4,12 @@
 }
 
 :root {
-    --primary_color: rgb(255, 64, 24);
+    --primary_color: rgb(12, 121, 0);
     --secondary_color: whitesmoke;
-    --darkish_color: rgb(95, 15, 8);
+    --darkish_color: rgb(60, 175, 16);
     --danger_color: rgb(220, 53, 69);
     --blue_color: rgb(13, 110, 253);
-    --shaded_color: rgba(255, 62, 24, 0.875);
+    --shaded_color: rgba(12, 121, 0, 0.808);
 }
 
 * {

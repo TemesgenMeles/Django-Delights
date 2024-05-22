@@ -1,7 +1,7 @@
 :root {
-    --primary_color: rgb(255, 64, 24);
+    --primary_color: rgb(12, 121, 0);
+    --darkish_color: rgb(60, 175, 16);
     --secondary_color: whitesmoke;
-    --darkish_color: rgb(95, 15, 8);
     --danger_color: rgb(220, 53, 69);
     --blue_color: rgb(13, 110, 253);
 }

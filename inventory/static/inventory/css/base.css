@@ -9,8 +9,8 @@
 }
 
 :root {
-    --primary_color: rgb(255, 64, 24);
-    --darkish_color: #5f0f08;
+    --primary_color: rgb(12, 121, 0);
+    --darkish_color: rgb(60, 175, 16);
     --secondary_color: whitesmoke;
     --danger_color: rgb(220, 53, 69);
     --blue_color: rgb(13, 110, 253);
@@ -141,5 +141,5 @@ footer p a {
 }
 
 footer p a:hover, footer p a:focus {
-    color: rgb(255, 45, 4);;
+    color: var(--darkish_color);
 }
