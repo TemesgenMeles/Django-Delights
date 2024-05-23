@@ -196,7 +196,7 @@
 First clone the repository from Github and switch to the new directory:
 
     $ git clone https://github.com/TemesgenMeles/Django-Delights
-    $ cd Django-blog
+    $ cd Django-Delights
 
 
 Then simply apply the migrations:
