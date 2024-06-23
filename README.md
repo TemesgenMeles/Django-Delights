@@ -11,7 +11,7 @@
 
 - Welcome to my Django project, This project is an Inventory project that provides a platform for individuals to manage inventorys, deliver menus, and calculate profits.
 
-!["alt text"](pic.png)
+!["alt text"](./pic.PNG)
 
 ## Built With
 
