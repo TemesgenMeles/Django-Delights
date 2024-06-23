@@ -36,7 +36,7 @@ class RecipeRequirement(models.Model):
     Menu_item = models.ForeignKey("MenuItem", verbose_name=("Menu Item"), on_delete=models.CASCADE)
     Ingradint = models.ForeignKey("Ingradient", verbose_name=("Recipe"), on_delete=models.PROTECT)
     Quantity = models.FloatField(default=0, blank=False, null=False)
-    Unit = models.CharField(max_length=6, choices=units)
+    Unit = models.CharField(default="gram", max_length=6, choices=units)
     
 class Purchase(models.Model):
     Menu_item = models.ForeignKey("MenuItem", verbose_name=("Menu Item"), on_delete=models.PROTECT)
@@ -54,6 +54,6 @@ class Profit(models.Model):
     Cost = models.FloatField(default = 0)
     Revenue = models.FloatField(default = 0)
     Profit = models.FloatField(default = 0)
-    Timestamp_start = models.DateTimeField()
-    Timestamp_end = models.DateTimeField()
+    Timestamp_start = models.CharField(max_length=255)
+    Timestamp_end = models.CharField(max_length=255)
     

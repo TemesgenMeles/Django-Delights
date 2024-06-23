@@ -42,7 +42,7 @@ Django Delight | Menus Recipe
                 <tr>
                     <td class="number" rowspan="{{item|GetRecipe | length}}">{{ forloop.counter }}</td>
                     <td rowspan="{{item|GetRecipe | length}}" >{{ item.Title }}</td>
-                        {% for rec in item|GetRecipe %} 
+                        {% for rec in item|GetRecipe %}  
                             {% if forloop.counter == 1 %}
                             <td>
                                 {% if rec.Unit == "count" %}
@@ -51,8 +51,7 @@ Django Delight | Menus Recipe
                                 <i class="fa fa-check-circle mycolor"></i>&nbsp;&nbsp;{{ rec.Quantity }} {{ rec.Unit }} of {{ rec.Ingradint.Name }}
                                 {% endif %}
                             </td>
-                            <td class="btn_box" rowspan="{{item|GetRecipe | length}}"><a href="#" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
-
+                            <td class="btn_box" rowspan="{{item|GetRecipe | length}}"><a href="{% url 'recipe_edit_page' item.id %}" class="btn"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</a></td>
                             {% else %}
                             <tr>
                                 <td>
@@ -62,8 +61,7 @@ Django Delight | Menus Recipe
                                     <i class="fa fa-check-circle mycolor"></i>&nbsp;&nbsp;{{ rec.Quantity }} {{ rec.Unit }} of {{ rec.Ingradint.Name }}
                                     {% endif %}
                                 </td>
-                            </tr>
-                            
+                            </tr>    
                             {% endif %}
                         {% endfor %}
                 </tr>

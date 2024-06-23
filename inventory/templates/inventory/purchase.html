@@ -29,26 +29,27 @@ Django Delight | Stokes
             <div class="tables">
                 <div class="table_top">
                     <h2 class="navigation_Menu">Purchase</h2>
-                    <form action="" class="my_form">
+                    <form action="{% url 'save_profit' %}" class="my_form" method="post">
+                        {% csrf_token %}
                         <div class="form_input big">
                             <label for="start_time">From:</label>
-                            <input type="text" name="start_time" value="{{ start_time }}" disabled>
+                            <input type="text" name="start" value="{{ start_time }}" readonly>
                         </div>
                         <div class="form_input big">
                             <label for="end_time">Until:</label>
-                            <input type="text" name="end_time" value="{{ end_time }}" disabled>
+                            <input type="text" name="end" value="{{ end_time }}" readonly>
                         </div>
                         <div class="form_input">
                             <label for="cost">Cost:</label>
-                            <input type="text" name="cost" value="{{cost|short}}" disabled>
+                            <input type="text" name="cost" value="{{cost|short}}" readonly>
                         </div>
                         <div class="form_input">
                             <label for="revenue">Revenue:</label>
-                            <input type="text" name="revenue" value="{{revenue|short}}" disabled>
+                            <input type="text" name="revenue" value="{{revenue|short}}" readonly>
                         </div>
                         <div class="form_input">
                             <label for="profit">Profit:</label>
-                            <input type="text" name="profit" value="{{profit|short}}" disabled>
+                            <input type="text" name="profit" value="{{profit|short}}" readonly>
                         </div>
                         <div class="form_input submit">
                             <input type="submit" value="Save" class="btn">

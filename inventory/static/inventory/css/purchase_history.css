@@ -4,7 +4,7 @@
 }
 
 :root {
-    --primary_color: rgb(255, 64, 24);
+    --primary_color: rgb(12, 121, 0);
     --secondary_color: whitesmoke;
 }
 
@@ -128,7 +128,7 @@ body {
 }
 
 .tables table tr:nth-child(odd){
-    background-color: rgba(255, 62, 24, 0.322);;
+    background-color: rgba(12, 121, 0, 0.308);
 }
 
 .tables table tr th {

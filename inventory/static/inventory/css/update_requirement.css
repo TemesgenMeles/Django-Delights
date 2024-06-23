@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@font-face {
+    font-family: "Acorn bold";
+    src: url('../fonts/acorn bold.ttf');
+}
+
+:root {
+    --primary_color: rgb(12, 121, 0);
+    --secondary_color: whitesmoke;
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.404), rgba(0, 0, 0, 0.466)), url(../images/background3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main {
+    padding: 20px 10px 0 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 3rem 0 3rem;
+    height: 85vh;
+    background-color: rgba(0, 0, 0, 0.534);
+    box-shadow: 5px 5px 5px var(--primary_color);
+}
+
+.main .main_nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main .main_nav .menu_title {
+    color: var(--secondary_color);
+    font-size: 3rem;
+    text-transform: capitalize;
+}
+
+.main .main_nav .menu_title span {
+    color: var(--primary_color);
+}
+
+.main .main_nav .links a {
+    text-decoration: none;
+    color: var(--secondary_color);
+    font-size: 1.3rem;
+}
+
+.main .main_nav .links a:hover, .main .main_nav .links a:focus, .main .main_nav .links .current {
+    color: var(--primary_color);
+    text-shadow: 2px 2px 3px var(--secondary_color);
+    transform: translateY(10px);
+}
+
+.main .content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.432);
+    overflow-y: scroll;
+}
+
+.main .content .item form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.content .item form .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: calc(25% - 10px);
+}
+
+.item form .inputs label {
+    color: var(--secondary_color);
+    font-size: 1.2rem;
+
+}
+
+.item form .inputs label span {
+    color: var(--primary_color);
+}
+
+.item form .inputs input,  .item form .inputs select{
+    border: 2px solid var(--primary_color);
+    border-radius: 10px;
+    width: 100%;
+    background-color: transparent;
+    font-size: 1.3rem;
+    font-weight: 600;
+    font-family: inherit;
+    padding-left: 20px;
+    color: var(--primary_color);
+}
+
+.item form .inputs select {
+    text-transform: capitalize;
+}
+
+.item form .button {
+    width: calc(25% - 10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item form .button .btn {
+    padding: 5px 30px;
+    border: 2px solid var(--primary_color);
+    background-color: transparent;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 1.2rem;
+    color: var(--primary_color);
+}
+
+.item form .button .btn:hover {
+    background-color: var(--primary_color);
+    color: var(--secondary_color);
+    box-shadow: 5px 5px 5px var(--secondary_color);
+    transform: translateY(-5px);
+    transition: all 0.5s;
+}

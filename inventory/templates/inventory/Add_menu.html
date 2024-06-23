@@ -22,7 +22,8 @@ Django Delights | Create Menu Item
                 <img src="{% static 'inventory/images/logo vertical.png' %}" alt="">
             </div>
             <div class="my_form">
-                <form action="">
+                <form action="{% url 'Submit_Add_menus' %}" method="post">
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col_1">
                             <h2 class="menu">Menus</h2>
@@ -32,7 +33,18 @@ Django Delights | Create Menu Item
                             </div>
                             <div class="input">
                                 <label for="price">price <span class="star">*</span></label>
-                                <input type="number" name="price" required>
+                                <input type="number" step="0.01" name="price" required>
+                            </div>
+
+                            <div class="input">
+                                <label for="reating">Reating <span class="star">*</span></label>
+                                <select name="reating">
+                                    <option value=1>1</option>
+                                    <option value=2>2</option>
+                                    <option value=3>3</option>
+                                    <option value=4>4</option>
+                                    <option value=5 selected>5</option>
+                                </select>
                             </div>
                             <div class="img">
                                 <img src="{% static 'inventory/images/logo.png' %}" alt="logo">
@@ -43,24 +55,28 @@ Django Delights | Create Menu Item
                             <h2 class="ingradient">Ingradients</h2>
                             <div class="ing_row">
                                 {% for ing_item in ingradients %}
-                                    <input type="checkbox" name="ingradient_list">{{ ing_item.Name}}
+                                <div class="chkbox">
+                                    <input type="checkbox" name="ingradient_list" value="{{ ing_item.id }}">
+                                    <label for="ingr" class="chk_name">{{ ing_item.Name}}</label>
+                                </div>
+                                    
                                 {% endfor %}
-                            </div>
+                            
                 
-                            <div class="other_btn">
-                                <a href="">Other</a>
+                                <div class="other_btn">
+                                    <a href="{% url 'add_ingradient_page' %}">Other</a> 
+                                </div>
                             </div>
                         </div>
                     </div>
                         
 
                     <div class="submit_data">
-                        <input type="submit" value="Submit">
-                        <input type="reset" value="Clear">
+                        <input type="submit" value="Submit" class="btn">
+                        <input type="reset" value="Clear" class="btn">
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <h1>ajhfdoqwj</h1>
 {% endblock %}

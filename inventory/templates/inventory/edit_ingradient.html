@@ -1,0 +1,56 @@
+{% load static %}
+{% load my_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stocks</title>
+    <link rel="stylesheet" href="{% static 'inventory/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'inventory/css/edit_ingradient.css' %}">
+</head>
+<body>
+    <div class="main">
+        <button onclick="backtoMenu()" class="close"><i class="fa fa-window-close-o" aria-hidden="true"></i></button>
+        <div class="my_forms">
+            <div class="logo">
+                <img src="{% static 'inventory/images/logo vertical.png' %}" alt="logo">
+            </div>
+            <div class="my_form">
+                <form action="{% url 'edit_ingradient' ingradient.id %}" method="post">
+                    {% csrf_token %} 
+                    <div class="form">
+                        <div class="row1">
+                            <div class="inputs">
+                                <label for="MenuItem">Name :&nbsp;<span>*</span></label>
+                                <input type="text" name="ingradient_name" value="{{ ingradient.Name }}">
+                            </div>
+                            <div class="inputs state">
+                                <input type="text" value="{{ingradient.State}}" disabled>
+                            </div>
+                        </div>
+
+                        <div class="row2">
+                            <div class="inputs">
+                                <input type="text" value="{{ingradient.Quantity}} {{ingradient.Unit}} left" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="buttons">
+                            <input type="submit" value="Edit" class="btn edit_btn">
+                            <a href="{% url 'stocks' %}" class="btn cancle_btn">Cancel</a>
+                        </div>    
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function backtoMenu(){
+            location.replace("{% url 'stocks' %}")
+        }
+    </script>
+</body>
+</html>

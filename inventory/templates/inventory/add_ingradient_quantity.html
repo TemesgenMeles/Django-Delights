@@ -1,0 +1,94 @@
+{% load static %}
+{% load my_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stocks</title>
+    <link rel="stylesheet" href="{% static 'inventory/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'inventory/css/add_ingradient_quantity.css' %}">
+</head>
+<body>
+    <div class="main">
+        <button onclick="backtoMenu()" class="close"><i class="fa fa-window-close-o" aria-hidden="true"></i></button>
+        <div class="my_forms">
+            <div class="logo">
+                <img src="{% static 'inventory/images/logo vertical.png' %}" alt="logo">
+            </div>
+            <div class="title">
+                <h2>Add Quantity for <span>{{ingradient.Name}}</span> </h2>
+            </div>
+            
+            <div class="my_form">
+                <form action="{% url 'add_quantity_to_ingradient' ingradient.id %}" method="post">
+                    {% csrf_token %} 
+                    <div class="form">
+                        
+                        <div class="inputs">
+                            <label for="quantity">Quantity:&nbsp;&nbsp;</label>
+                            
+                            {% if ingradient.State == "count" %}
+                                <input type="number" name="quantity" min="1" step="1">
+                            {% else %}
+                                <input type="number" name="quantity" min="0.01" step="0.01">
+                            {% endif %}
+                        </div>
+
+                        <div class="inputs">
+                            <label for="unit">Unit:&nbsp;&nbsp;&nbsp;</label>
+                            <select name="unit">
+                                
+                                {% if ingradient.State == "liquid" %}
+                                    
+                                    {% for unit in liquid_unit %}
+                                        
+                                        {% if ingradient.Unit == unit %}
+                                            <option value="{{unit}}" selected>{{unit}}</option>
+                                        {% else %}
+                                            <option value="{{unit}}">{{unit}}</option>
+                                        {% endif %}
+                                            
+                                    {% endfor %}
+                                {% elif ingradient.State == "solid" %}  
+
+                                    
+                                    {% for unit in solid_unit %}
+                                        
+                                        {% if ingradient.Unit == unit %}
+                                            <option value="{{unit}}" selected>{{unit}}</option>
+                                        {% else %}
+                                            <option value="{{unit}}">{{unit}}</option>
+                                        {% endif %}
+                                            
+                                    {% endfor %}
+                                {% else %}
+                                    <option value="{{ingradient.Unit}}" selected>{{ingradient.Unit}}</option>
+                                {% endif %}
+                                    
+                            </select>
+                        </div>
+
+                        <div class="inputs">
+                            <label for="Unit_price">Unit Price:&nbsp;</label>
+                            <input type="number" name="unit_price" step="0.01">
+                        </div>
+                        
+                        <div class="buttons">
+                            <input type="submit" value="Add" class="btn add_btn">
+                            <a href="{% url 'stocks' %}" class="btn cancle_btn">Cancel</a>
+                        </div>    
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function backtoMenu(){
+            location.replace("{% url 'stocks' %}")
+        }
+    </script>
+</body>
+</html>

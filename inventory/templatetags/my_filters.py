@@ -9,11 +9,6 @@ def filter_range(start, end):
 @register.filter(name="GetRecipe")
 def GetRecipe(ids):
     recipes = RecipeRequirement.objects.filter(Menu_item = ids)
-    
-    context ={
-        "recipes" : recipes
-    }
-    
     return recipes
 
 @register.filter(name="length")

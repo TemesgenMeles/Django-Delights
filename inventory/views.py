@@ -1,12 +1,94 @@
 from django.shortcuts import render
 from .models import Ingradient, MenuItem, RecipeRequirement, Purchase, PurcahseHistory, Profit
+import datetime
+
+# for calculating unit values
+# changing the quantity into mililiter and gram based on their state
+def to_gram(state, unit, quantity):
+    result = 0
+    # if it's state solid change the quantity into gram
+    if state == "solid":
+        # change into gram based on thier units
+        if unit == "teaspoon":
+            result = quantity * 5
+        elif unit == "tablespoon":
+            result = quantity * 15
+        elif unit == "pound":
+            result = quantity * 433
+        elif unit == "kilogram":
+            result = quantity * 1000
+        elif unit == "ounce":
+            result = quantity * 28.3
+        else : # if it is not in the above it is a gram unit so we don't have to change any thing
+            result = quantity
+    # if is's state liquid change the quantity into mililiter
+    elif state == "liquid":
+        # change into mililiter based on thier units
+        if unit == "teaspoon":
+            result = quantity * 5
+        elif unit == "tablespoon":
+            result = quantity * 15
+        elif unit == "gallon":
+            result = quantity * 3785.41
+        elif unit == "glass":
+            result = quantity * 240
+        elif unit == "ounce":
+            result = quantity * 28.4
+        elif unit == "litre":
+            result = quantity * 1000
+        else : # if it is not in the above it is a mililiter unit so we don't have to change any thing
+            result = quantity
+    else : # if it is not solid or liquid so it is count we don't have to change any thing
+        result = quantity
+    result = "%.2f" %result
+    return float(result)
+
+# changing the quantity from mililiter and gram into their state
+def from_gram(state, unit, quantity):
+    result = 0
+    # if the state is solid we change it form gram
+    if state == "solid":
+        if unit == "teaspoon":
+            result = quantity / 5
+        elif unit == "tablespoon":
+            result = quantity / 15
+        elif unit == "pound":
+            result = quantity / 433
+        elif unit == "kilogram":
+            result = quantity / 1000
+        elif unit == "ounce":
+            result = quantity / 28.3
+        else :
+            result = quantity
+    # if the state is liquid we change it from mililiter
+    elif state == "liquid":
+        if unit == "teaspoon":
+            result = quantity / 5
+        elif unit == "tablespoon":
+            result = quantity / 15
+        elif unit == "gallon":
+            result = quantity / 3785.41
+        elif unit == "glass":
+            result = quantity / 240
+        elif unit == "ounce":
+            result = quantity / 28.4
+        elif unit == "litre":
+            result = quantity / 1000
+        else :
+            result = quantity
+    # if the state is nither solid nor liquid we don't have to change any thing
+    else :
+        result = quantity
+    # we change the last result into 2nd decimal place in case it has many decimal place
+    result = "%.2f" %result
+    return float(result)
 
 # Create your views here.
 def Index(request):
     return render(request, "inventory/index.html")
 
 def ShowIngradients(request):
-    Ingradients = Ingradient.objects.all()
+    Ingradients = Ingradient.objects.order_by("-id")
     context = {
         "ingradients" : Ingradients
     }
@@ -34,8 +116,6 @@ def ShowRecipe(request):
     
     return render(request, "inventory/recipe.html", context)
 
-
-
 def Purchases(request):
     purchases_item = Purchase.objects.all()
     context = {
@@ -48,13 +128,21 @@ def Profit_revenue(request):
     # creating a variable for the cost and the revenue
     cost = 0
     revenue = 0
+    start = 0
+    end = 0
+    profit = 0
+    
     # selecting all the items in the purchase table
     purchases = Purchase.objects.all()
     
-    start = purchases[0].Timestamp
-    end = purchases[0].Timestamp
+    
+    counter = 1
     # loop every single purchase
     for purchase in purchases:
+        if counter == 1:
+            start = purchases[0].Timestamp
+            end = purchases[0].Timestamp
+            counter = counter + 1
         # creating a variable for a single purchase
         single_cost = 0
         # get the menu item and quantity from the perchase table and assign it to the variable
@@ -90,17 +178,24 @@ def Profit_revenue(request):
     
     return render(request, "inventory/purchase.html", context)
 
-def Confirm_profit(request, start, end, cost, revenue, profit):
-    purchases = Purchase.objects.all()
-    
-    for item in purchases:
-        PurcahseHistory(Menu_name = item.Menu_item.Title, Timestamp = item.Timestamp, Quantity = item.Quantity, Total_price = item.Total_price).save()
+def Confirm_profit(request):
+    if request.method == "POST":
+        start = request.POST.get('start')
+        end = request.POST.get('end')
+        cost = float(request.POST.get('cost'))
+        revenue = float(request.POST.get('revenue'))
+        profit = float(request.POST.get('profit'))
         
-        item.delete()
+        purchases = Purchase.objects.all()
+        Profit(Cost = cost, Revenue = revenue, Profit = profit, Timestamp_start = start, Timestamp_end = end).save()
+        for item in purchases:
+            PurcahseHistory(Menu_name = item.Menu_item.Title, Timestamp = item.Timestamp, Quantity = item.Quantity, Total_price = item.Total_price).save()
+            
+            item.delete()
+            
         
-    Profit(Cost = cost, Revenue = revenue, Profit = profit, Timestamp_start = start, Timestamp_end = end).save()
-    
-    Profit(request)
+        
+        return All_Profit(request)
 
 def All_Profit(request):
     profites = Profit.objects.order_by("-pk")  
@@ -117,7 +212,7 @@ def All_Profit(request):
     return render(request, "inventory/all_profit.html", context)
 
 def All_purchase(request):
-    purchases = PurcahseHistory.objects.order_by("Timestamp")
+    purchases = PurcahseHistory.objects.order_by("-Timestamp")
     
     context = {
         "purchases": purchases
@@ -132,6 +227,346 @@ def Add_Menus(request):
     }
     
     return render(request, "inventory/Add_menu.html", context)
+
+def SubmitMenu(request):
+    context = {}
+    if request.method == "POST":
+        title = request.POST["title"]
+        price = request.POST["price"]
+        reating = request.POST["reating"]
+        ingradient_list = request.POST.getlist("ingradient_list")
+        AddMenus = MenuItem(Title = title, Price = price, Reating = reating, Status = False)
+        AddMenus.save()
+        FeachMenuItem = MenuItem.objects.get(Title = title, Price = price, Reating = reating)
+        for item in ingradient_list:
+            FeachIngradient = Ingradient.objects.get(id = item)
+            AddRecipeRequirement = RecipeRequirement(Menu_item = FeachMenuItem, Ingradint = FeachIngradient)
+            AddRecipeRequirement.save()
+        
+        feachRecipe = RecipeRequirement.objects.filter(Menu_item = FeachMenuItem)
+        units = [
+            "teaspoon",
+            "tablespoon",
+            "pound",
+            "gram",
+            "kilogram",
+            "ounce",
+            "mililitre",
+            "litre",
+            "glass",
+            "gallon",
+            "count"
+        ]
+        
+        context = {
+            "RecipeIngradients": feachRecipe,
+            "units": units,
+            "title": title,
+        }
+        
+    return render(request, "inventory/update_requirement.html", context)
+
+def SubmitRecipes(request, rrid):
+    if request.method == "POST":
+        #rrid = request.POST['id']
+        quantity = request.POST['quantity']
+        unit = request.POST['unit']
+
+        feachRR = RecipeRequirement.objects.get(id = rrid)
+        feachRR.Quantity = quantity
+        feachRR.Unit = unit
+        feachRR.save()
+        
+        FeachMenuItem = feachRR.Menu_item
+        
+        feachRecipe = RecipeRequirement.objects.filter(Menu_item = FeachMenuItem)
+        units = [
+            "teaspoon",
+            "tablespoon",
+            "pound",
+            "gram",
+            "kilogram",
+            "ounce",
+            "mililitre",
+            "litre",
+            "glass",
+            "gallon",
+            "count"
+        ]
+        
+        context = {
+            "RecipeIngradients": feachRecipe,
+            "units": units,
+            "title": FeachMenuItem.Title 
+        }
+    
+    return render(request, "inventory/update_requirement.html", context)
+
+def Buy(request, itemID):
+    
+    Menu_item_id = itemID
+    
+    purchase_item = MenuItem.objects.get(id = Menu_item_id)
+    
+    context = {
+        "purchase_item" : purchase_item,
+    }
+    
+    return render(request, "inventory/purchase_conformation.html", context)
+    
+def buy_function(request, itemID):
+    if request.method == "POST":
+        Mid = itemID
+        quant = float(request.POST.get('quantity'))
+        menuItem = MenuItem.objects.get(id=Mid)
+        pri = menuItem.Price * quant
+        pri = "%.2f" %pri
+        
+        Purchase(Menu_item = menuItem, Quantity = quant, Total_price = pri).save()
+        
+        Recipe_requirements = RecipeRequirement.objects.filter(Menu_item = menuItem)
+        
+        for recipe_requirement in Recipe_requirements:
+            whole_ingradient = recipe_requirement.Ingradint
+            
+            ingradient_state = whole_ingradient.State
+            ingradient_unit = whole_ingradient.Unit
+            ingradient_quantity = whole_ingradient.Quantity
+            
+            required_unit = recipe_requirement.Unit
+            required_quantity = recipe_requirement.Quantity
+            
+            big = to_gram(ingradient_state, ingradient_unit, ingradient_quantity)
+            
+            small = to_gram(ingradient_state, required_unit, required_quantity)
+            small = float(small) * float(quant)
+            
+            left_Ingradient = float(big) - float(small)
+            
+            finall_quantity = from_gram(ingradient_state, ingradient_unit, left_Ingradient)
+            
+            whole_ingradient.Quantity = finall_quantity
+            whole_ingradient.save()
+        
+    return ShowMenu(request)
+        
+def Edit_Menu_Page(request, itemID):
+    menu_item = MenuItem.objects.get(id = itemID)
+
+    context = {
+        "menu_item" : menu_item,
+    }
+    
+    return render(request, "inventory/edit_menu.html", context)
+
+def Edit_Menu(request, itemID):
+    if request.method == "POST":
+        MIID = itemID
+        title = request.POST['menu_name']
+        price = request.POST['price']
+        reating = request.POST['reating']
+
+        menu_item = MenuItem.objects.get(id=MIID)
+        menu_item.Title = title
+        menu_item.Price = price
+        menu_item.Reating = reating
+        
+        menu_item.save()
+        
+        return ShowMenu(request)
+
+def Recipe_Edit_Page(request, itemID):
+    recipe_item = RecipeRequirement.objects.filter(Menu_item = itemID)
+    menu_item = MenuItem.objects.get(id = itemID)
+    title = menu_item.Title
+    menuID = menu_item.id
+    
+    left_ingradient = []
+    ingradients = Ingradient.objects.all()
+    for ingradient in ingradients:
+        count = 0
+        for recipe in recipe_item:
+            if ingradient == recipe.Ingradint:
+                count = count + 1
+            else:
+                continue
+        if count == 0:
+            left_ingradient.append(ingradient)
+
+    units = [
+            "teaspoon",
+            "tablespoon",
+            "pound",
+            "gram",
+            "kilogram",
+            "ounce",
+            "mililitre",
+            "litre",
+            "glass",
+            "gallon",
+            "count"
+        ]
+    
+    context = {
+        "recipe_item" : recipe_item,
+        "title" : title,
+        "menuID" : menuID,
+        "units" : units,
+        "ingradients": left_ingradient,
+    }
+    
+    return render(request, "inventory/recipe_edit.html", context)
+
+def Recipe_Edit(request, itemID):
+    if request.method == "POST":
+        recipe_requirement = RecipeRequirement.objects.get(id = itemID)
+        
+        quan = request.POST['recipe_quantity']
+        unit = request.POST['recipe_unit']
+        
+        recipe_requirement.Quantity = quan
+        recipe_requirement.Unit = unit
+        
+        recipe_requirement.save()
+        
+        return ShowRecipe(request)
+
+def Recipe_Delete(request, itemID, menuID):
+    recipe_requirement = RecipeRequirement.objects.get(id = itemID)
+    recipe_requirement.delete()
+    
+    return Recipe_Edit_Page(request, menuID)
+
+def Add_Recipe_from_Edit(request, menuID):
+    if request.method == "POST":
+        menuID = menuID
+        ingradientID = request.POST['name']
+        menu_item = MenuItem.objects.get(id = menuID)
+        ingradient = Ingradient.objects.get(id = ingradientID)
+        quantity = request.POST['quantity']
+        unit = request.POST['unit']
+
+        RecipeRequirement(Menu_item = menu_item, Ingradint = ingradient, Quantity = quantity, Unit = unit).save()
+        
+        return ShowRecipe(request)
+    
+def Add_Ingradient_Page(request):
+    state = [
+        "liquid",
+        "solid",
+        "count"
+    ]
+    
+    units = [
+        "teaspoon",
+        "tablespoon",
+        "pound",
+        "gram",
+        "kilogram",
+        "ounce",
+        "mililitre",
+        "litre",
+        "glass",
+        "gallon",
+        "count"
+    ]
+    
+    context = {
+        "states" : state,
+        "units" : units,
+    }
+    return render(request, "inventory/add_ingradient.html", context)
+
+def Add_Ingradient(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        state = request.POST['state']
+        quantity = request.POST['quantity']
+        unit = request.POST['unit']
+        unit_price = request.POST['unit_price']
+
+        Ingradient(Name = name, State = state, Quantity = quantity, Unit = unit, Unit_price = unit_price).save()
+        
+        return ShowIngradients(request)
+
+def Edit_Ingradient_Page(request, IngradientID):
+    ingradient = Ingradient.objects.get(id = IngradientID)
+    
+    context = {
+        "ingradient" : ingradient,
+    }
+
+    return render(request, "inventory/edit_ingradient.html", context)
+
+def Edit_Ingradient(request, IngradientID):
+    if request.method == "POST":
+        name = request.POST['ingradient_name']
+        ingradient = Ingradient.objects.get(id = IngradientID)
+
+        ingradient.Name = name
+        ingradient.save()
+
+        return ShowIngradients(request)
+
+def Add_Quantity_Page(request, IngradientID):
+    ingradient = Ingradient.objects.get(id = IngradientID)
+    liquid_unit = [
+        "tablespoon",
+        "teaspoon",
+        "mililitre",
+        "litre",
+        "glass",
+        "gallon",
+        "ounce"
+    ]
+    
+    solid_unit = [
+        "tablespoon",
+        "teaspoon",
+        "gram",
+        "kilogram",
+        "pound",
+        "ounce"
+    ]
+    
+    context = {
+        "ingradient" : ingradient,
+        "liquid_unit" : liquid_unit,
+        "solid_unit" : solid_unit,
+    }
+    
+    return render(request, "inventory/add_ingradient_quantity.html", context)
+
+def Add_Quantity(request, IngradientID):
+    if request.method == "POST":
+        quan = float(request.POST['quantity'])
+        unit = request.POST['unit']
+        u_price = float(request.POST['unit_price'])
+        
+        ingradient = Ingradient.objects.get(id = IngradientID)
+        state = ingradient.State
+        if ingradient.Unit == unit:
+            quantity = ingradient.Quantity + quan
+
+            unit_price = ((ingradient.Quantity * ingradient.Unit_price) + (quan * u_price)) / quantity
+        else:
+            quan_result = to_gram(state, unit, quan)
+            pri_result = to_gram(state, unit, u_price)
+            
+            quantity_result = from_gram(ingradient.State, ingradient.Unit, quan_result)
+            price_result = from_gram(ingradient.State, ingradient.Unit, pri_result)
+            
+            quantity = ingradient.Quantity + quantity_result
+            unit_price = ((ingradient.Quantity * ingradient.Unit_price) + (quantity_result * price_result)) / quantity
+        
+        quantity = float("%.2f" %quantity)
+        unit_price = float("%.2f" %unit_price)
+        
+        ingradient.Quantity = quantity
+        ingradient.Unit_price = unit_price
+        ingradient.save()
+        
+        return ShowIngradients(request)
 
 def Logout(request):
     pass
