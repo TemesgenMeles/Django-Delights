@@ -211,4 +211,4 @@ You can now run the development server:
     $ python manage.py runserver
 
 ## Contact
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/temesgen-meles)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/meet-temesgen-meles)
